@@ -1,10 +1,8 @@
 <template>
-  <div class="home">
-    
-    <!-- <Home msg="Welcome to Your Vue.js App"/> -->
-    <Head msg="Welcome to Your Vue.js App"/>
-    <div>首页</div>
-    <Footer msg="Welcome to Your Vue.js App"/>
+  <div>
+    <Head msg="Welcome to Your Vue.js App" />
+    <div>会员注册</div>
+    <Footer msg="Welcome to Your Vue.js App" />
   </div>
 </template>
 
