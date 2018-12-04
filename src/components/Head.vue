@@ -4,7 +4,7 @@
       <div class="nav-whole">
         <div class="nav-login">
           <router-link tag="a" to="/">返回首页</router-link>
-          <router-link tag="a" to="/register">会员注册</router-link>
+          <router-link tag="a" to="/register">加入联盟</router-link>
           <router-link tag="a" to="/login">会员登录</router-link>
         </div>
         <div class="nav-main">
@@ -46,7 +46,6 @@
   text-align: right;
 }
 .nav .nav-main {
-
   color: #eeeeee;
   font-size: 20px;
   text-align: right;
