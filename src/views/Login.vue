@@ -3,6 +3,8 @@
 <div class="container" :style="{minHeight:minHeight + 'px'}">
     <Head msg="Welcome to Your Vue.js App" />
     <div class="login">
+      <div class="loginbody">
+121
       <div>会员登录</div>
       <div>
         <el-form
@@ -39,6 +41,8 @@
           </el-form-item>
         </el-form>
       </div>
+      </div>
+      
     </div>
     </div>
     <Footer msg="Welcome to Your Vue.js App" />
@@ -93,5 +97,22 @@ export default {
   width: 600px;
   height: 600px;
   margin: 0 auto;
+  align-content: center;
+  background-color: aqua;
+}
+.loginbody
+{
+  //position:absolute;
+background-color: adjust-hue($color: #962121, $degrees: 0);
+  width: 100%;
+  height: 50%; 
+  //margin-left: -150px; 
+  //padding-top:  250px; 
+  //padding-left:  250px; 
+  
+position:relative; 
+left:0px; 
+top:150px;
+
 }
 </style>
