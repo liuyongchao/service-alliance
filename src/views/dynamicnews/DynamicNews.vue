@@ -1,7 +1,8 @@
 <template>
   <div>
+    <div class="container" :style="{minHeight:minHeight + 'px'}">
     <Head msg="Welcome to Your Vue.js App" />
-    <div>联盟动态</div>
+    <div>动态要闻</div>
     <div class="content">
         <div class="left">
             <ul>
@@ -13,6 +14,7 @@
             <router-view></router-view>
         </div>           
     </div>
+    </div>
     <Footer msg="Welcome to Your Vue.js App" />    
   </div>
 </template>
@@ -23,7 +25,18 @@
 import Head from "@/components/Head.vue";
 import Footer from "@/components/Footer.vue";
 export default {
-  name: "head",
+  data() {
+    return {
+      minHeight: 0
+    };
+  },
+  mounted() {
+    this.minHeight = document.documentElement.clientHeight - 200;
+    var me = this;
+    window.onresize = function() {
+      me.minHeight = document.documentElement.clientHeight - 200;
+    };
+  },
   components: {
     Head,
     Footer

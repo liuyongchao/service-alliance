@@ -1,63 +1,70 @@
 <template>
 <div>
-    <div class="nav">
-      <div class="nav-whole">
-        <div class="nav-login">
-          <router-link tag="a" to="/">返回首页</router-link>
-          <router-link tag="a" to="/register">加入联盟</router-link>
-          <router-link tag="a" to="/login">会员登录</router-link>
-        </div>
-        <div class="nav-main">
-          <router-link tag="a" to="/allianceintroduction">联盟概况</router-link>
-          <router-link tag="a" to="/alliancedynamics">联盟动态</router-link>
-          <router-link tag="a" to="/selfassessment">企业自评</router-link>
-          <router-link tag="a" to="/IndustryMap">产业地图</router-link>
-          <router-link tag="a" to="/contactus">联系我们</router-link>
-        </div>
-      </div>               
+  <div class="top">
+    <div class="top-left"></div>
+    <div class="top-right">      
+      <el-button type="primary" icon="el-icon-search"><router-link tag="a" to="/">返回首页</router-link></el-button>
+      <el-button type="primary" icon="el-icon-search"><router-link tag="a" to="/login">会员登录</router-link></el-button>
     </div>
-    <div class="logo"></div>
-    </div>
+  </div>
+          <ul class="nav">
+            <li class="active"><router-link tag="a" to="/dynamicnews">动态要闻</router-link></li>
+            <li><router-link tag="a" to="/selfassessment">企业自评</router-link></li>
+            <li><router-link tag="a" to="/IndustryMap">产业地图</router-link></li>
+            <li><router-link tag="a" to="/login">会员中心</router-link></li>
+            <li><router-link tag="a" to="/aboutus">关于我们</router-link></li>
+          </ul>
+  </div>
 </template>
 <style lang="scss" scoped>
-.nav {
-  background-color: #006699;
+.top {
   height: 100px;
+  width: 1200px;
+  margin: 0 auto;
+  .top-left {
+    width: 316px;
+    height: 100px;
+    float: left;
+    background: url(../assets/image/logo.png) no-repeat 0 20px;
+  }
+  .top-right {
+    width: 147px;
+    height: 100px;
+    float: right;
+    .el-button {
+      margin: 5px 0 5px;
+      color: red;
+      border-radius: 0;
+      border-color: #ebebeb;
+      background-color: #ebebeb;
+      a {
+        color: #666666;
+        text-decoration: none;
+      }
+    }
+  }
+}
+.nav {
+  height: 50px;
+  width: 1200px;
+  margin: 0 auto;
+  background-color: #0088d3;
+  li {
+    float: left;
+    padding: 0 20px;
+  }
+  li.active {
+    background-color: #006da9;
+  }
   a {
-    color: #dddddd;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 50px;
     text-decoration: none;
     padding: 5px;
   }
   a:hover {
     color: gold;
   }
-}
-.nav-whole {
-  margin: auto;
-  width: 1200px;
-}
-
-.nav .nav-login {
-  padding: 10px;
-  height: 40px;
-  color: #999999;
-  font-size: 14px;
-  line-height: 40px;
-  text-align: right;
-}
-.nav .nav-main {
-  color: #eeeeee;
-  font-size: 20px;
-  text-align: right;
-  a {
-    padding: 0 10px;
-  }
-}
-.nav .nav-main a {
-}
-.logo {
-  height: 150px;
-  background-color: gold;
-  background: url("../assets/logo.png") no-repeat 0% 0%;
 }
 </style>

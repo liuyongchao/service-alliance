@@ -1,14 +1,11 @@
 <template>
-  <div>
-    <div class="container" :style="{minHeight:minHeight + 'px'}">
-      <Head></Head>
-      <div
-        class="content"
-      ></div>
-
+    <div>
+      <div class="container" :style="{minHeight:minHeight + 'px'}">
+        <Head msg="Welcome to Your Vue.js App"/>
+        <div>关于我们</div>
+        </div>
+        <Footer msg="Welcome to Your Vue.js App"/>
     </div>
-    <Footer></Footer>
-  </div>
 </template>
 
 <script>
@@ -35,5 +32,3 @@ export default {
   }
 };
 </script>
-<style lang="scss">
-</style>
