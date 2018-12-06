@@ -1,8 +1,8 @@
 <template>
     <div>
         <Head msg="Welcome to Your Vue.js App"/>
-        <div>联系我们</div>
-        <Footer msg="Welcome to Your Vue.js App"/>
+        <div>会员中心</div>
+        <Footer msg="Welcome to Your Vue.js App" />
     </div>
 </template>
 

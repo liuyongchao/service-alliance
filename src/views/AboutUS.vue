@@ -2,7 +2,7 @@
     <div>
       <div class="container" :style="{minHeight:minHeight + 'px'}">
         <Head msg="Welcome to Your Vue.js App"/>
-        <div>企业自评</div>
+        <div>关于我们</div>
         </div>
         <Footer msg="Welcome to Your Vue.js App"/>
     </div>

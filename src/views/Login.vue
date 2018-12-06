@@ -1,8 +1,8 @@
 <template>
   <div>
-
+<div class="container" :style="{minHeight:minHeight + 'px'}">
     <Head msg="Welcome to Your Vue.js App" />
-    <div class="container">
+    <div class="login">
       <div>会员登录</div>
       <div>
         <el-form
@@ -40,6 +40,7 @@
         </el-form>
       </div>
     </div>
+    </div>
     <Footer msg="Welcome to Your Vue.js App" />
   </div>
 </template>
@@ -52,6 +53,7 @@ import Footer from "@/components/Footer.vue";
 export default {
   data() {
     return {
+      minHeight: 0,
       loginForm: {
         name: "",
         password: ""
@@ -68,6 +70,13 @@ export default {
       }
     };
   },
+  mounted() {
+    this.minHeight = document.documentElement.clientHeight - 200;
+    var me = this;
+    window.onresize = function() {
+      me.minHeight = document.documentElement.clientHeight - 200;
+    };
+  },
   methods: {
     onSubmit() {
       console.log("submit!");
@@ -79,11 +88,10 @@ export default {
   }
 };
 </script>
-<style lang="scss">
-.container {
+<style lang="scss" scoped>
+.login {
   width: 600px;
   height: 600px;
   margin: 0 auto;
-  background-color: pink;
 }
 </style>
