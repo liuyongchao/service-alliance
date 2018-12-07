@@ -54,7 +54,53 @@
               </li>
             </ul>
           </div>
-          <div class="center-right"></div>
+          <div class="center-right">
+            <div class="box"><p>联盟动态</p></div>
+            <img src="../assets/image/self-evaluation.png" alt="">
+          </div>
+        </div>
+        <div class="bottom">
+          <div class="bottom-left">
+              <div class="box"><p>最新通知</p></div>
+              <ul>
+                <li>
+                  <div class="publishdate">
+                    <h1>2018</h1>
+                    <p>11-20</p>
+                  </div>
+                  <div class="publishtitle">关于召开高科技企业2018年融资专场对接会的通知</div>
+                </li>
+                <li>
+                 <div class="publishdate">
+                    <h1>2018</h1>
+                    <p>11-20</p>
+                  </div>
+                  <div class="publishtitle">关于召开高科技企业2018年融资专场对接会的通知</div>
+                </li>
+                <li>
+                  <div class="publishdate">
+                    <h1>2018</h1>
+                    <p>11-20</p>
+                  </div>
+                  <div class="publishtitle">关于召开高科技企业2018年融资专场对接会的通知</div>
+                </li>
+              </ul>
+          </div>
+          <div class="bottom-center">
+              <div class="box"><p>一周政策</p></div>
+              <ul>
+                <li><a href="">关于召开高科技企业2018年融资专场对接会的通知</a></li>
+                <li><a href="">关于召开高科技企业2018年融资专场对接会的通知</a></li>
+                <li><a href="">关于召开高科技企业2018年融资专场对接会的通知18年融资专场对接会的通知</a></li>
+                <li><a href="">关于召开高科技企业2018年融资专场对接会的通知18年融资专场对接会的通知</a></li>
+                <li><a href="">关于召开高科技企业2018年融资专场对接会的通知18年融资专场对接会的通知</a></li>
+              </ul>
+              
+          </div>
+          <div class="bottom-right">
+              <div class="box"><p>产业地图</p></div>
+              <img src="../assets/image/map.png" alt="">
+          </div>
         </div>
       </div>
 
@@ -146,6 +192,7 @@ export default {
     margin: 20px 0 0;
     .center-left {
       width: 820px;
+      display: inline-block;
       .box {
         border-bottom: 1px solid #0088d3;
         p {
@@ -200,6 +247,104 @@ export default {
             bottom: 0;
           }
         }
+      }
+    }
+    .center-right {
+      width: 360px;
+      height: 500px;
+      float: right;
+      display: inline-block;
+      .box {
+        border-bottom: 1px solid #0088d3;
+        p {
+          text-align: center;
+          height: 46px;
+          width: 100px;
+          line-height: 46px;
+          color: #ffffff;
+          background-color: #0088d3;
+        }
+      }
+      img {
+        padding: 10px 0 0;
+      }
+    }
+  }
+  .bottom {
+    height: 400px;
+    padding: 20px 0 0;
+    .box {
+      border-bottom: 1px solid #0088d3;
+      p {
+        text-align: center;
+        height: 46px;
+        width: 100px;
+        line-height: 46px;
+        color: #ffffff;
+        background-color: #0088d3;
+      }
+    }
+    .bottom-left {
+      float: left;
+      width: 386px;
+      display: inline-block;
+      ul {
+        height: 333px;
+        li {
+          border-bottom: 1px solid #eeeeee;
+          .publishdate {
+            width: 70px;
+            margin: 25px 0 20px;
+            display: inline-block;
+            border-right: 2px solid #eeeeee;
+            h1 {
+              font-size: 20px;
+              color: #555555;
+            }
+            p {
+              font-size: 14px;
+              color: #999999;
+            }
+          }
+          .publishtitle {
+            line-height: 20px;
+            text-align: left;
+            width: 304px;
+            margin: 0 0 20px 10px;
+            color: #555555;
+            display: inline-block;
+          }
+        }
+      }
+    }
+    .bottom-center {
+      float: left;
+      width: 386px;
+      display: inline-block;
+      margin: 0 20px 0;
+      ul {
+        height: 333px;
+        li {
+          text-align: left;
+          padding: 20px 0 20px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          border-bottom: 2px dashed #eeeeee;
+          a {
+            font-size: 14px;
+            color: #555555;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+    .bottom-right {
+      float: left;
+      width: 386px;
+      display: inline-block;
+      img {
+        padding: 20px 0 0;
       }
     }
   }

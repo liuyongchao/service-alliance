@@ -174,7 +174,7 @@ export default {
       console.log(BMap, map);
       this.center.lng = 116.71575;
       this.center.lat = 40.255047;
-      this.zoom = 10;
+      this.zoom = 9;
     }
   }
 };
@@ -182,7 +182,7 @@ export default {
 
 <style lang="scss" scoped>
 .map {
-  height: 1800px;
+  height: 900px;
   .map-up {
     height: 50%;
     .map-left {
