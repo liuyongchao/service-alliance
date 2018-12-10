@@ -4,18 +4,33 @@
     <div class="top-left"></div>
     <div class="top-right">      
       <el-button type="primary" icon="el-icon-search"><router-link tag="a" to="/">返回首页</router-link></el-button>
-      <el-button type="primary" icon="el-icon-search"><router-link tag="a" to="/login">会员登录</router-link></el-button>
+      <el-button type="primary" icon="el-icon-search" v-if="!token"><router-link tag="a" to="/login" >会员登录</router-link></el-button>
+      <el-button type="primary" icon="el-icon-search" v-if="token" @click="logout"><router-link tag="a" to="/login" >会员退出</router-link></el-button>
     </div>
   </div>
           <ul class="nav">
-            <li class="active"><router-link tag="a" to="/dynamicnews">动态要闻</router-link></li>
+            <li class="active"><router-link tag="a" to="/">动态要闻</router-link></li>
             <li><router-link tag="a" to="/selfassessment">企业自评</router-link></li>
-            <li><router-link tag="a" to="/IndustryMap">产业地图</router-link></li>
+            <li><router-link tag="a" to="/industrymap">产业地图</router-link></li>
             <li><router-link tag="a" to="/login">会员中心</router-link></li>
             <li><router-link tag="a" to="/aboutus">关于我们</router-link></li>
           </ul>
   </div>
 </template>
+<script>
+import { mapGetters } from "vuex";
+export default {
+  methods: {
+    logout() {
+      this.$store.dispatch("FedLogOut");
+    }
+  },
+  computed: {
+    ...mapGetters(["name", "authorities", "token"])
+  }
+};
+</script>
+
 <style lang="scss" scoped>
 .top {
   height: 100px;

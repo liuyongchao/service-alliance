@@ -9,9 +9,7 @@ import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import BaiduMap from "vue-baidu-map";
 import "./assets/css/index.css";
-
-axios.defaults.baseURL =
-  "http://192.168.66.253:7300/mock/5c0a29e7d90812196538d17e";
+import "@/permission"; // permission control
 
 Vue.component("v-chart", ECharts);
 Vue.use(ElementUI);

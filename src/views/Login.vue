@@ -6,16 +6,16 @@
         <div class="title">会员登录</div>
         <div class="logininput">
           <div>
-            <el-form ref="form" :rules="rules">
+            <el-form :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left">
               <el-form-item label-width="100px" label prop="name">
-                <el-input placeholder="请输入用户名"></el-input>
+                <el-input v-model="loginForm.username" placeholder="请输入用户名"></el-input>
               </el-form-item>
               <el-form-item label-width="100px" label prop="name">
-                <el-input placeholder="请输入密码"></el-input>
+                <el-input v-model="loginForm.password" placeholder="请输入密码"></el-input>
               </el-form-item>
               <div class="loginbutton">
                 <el-form-item>
-                  <el-button type="primary" @click="onSubmit">登录</el-button>
+                  <el-button type="primary" @click.native.prevent="handleLogin">登录</el-button>
                 </el-form-item>
               </div>
             </el-form>
@@ -41,7 +41,62 @@
 //import HelloWorld from "@/components/HelloWorld.vue";
 import Head from "@/components/Head.vue";
 import Footer from "@/components/Footer.vue";
+import { isvalidUsername } from "@/utils/validate";
 export default {
+  data() {
+    const validateUsername = (rule, value, callback) => {
+      if (!isvalidUsername(value)) {
+        callback(new Error("请输入正确的用户名"));
+      } else {
+        callback();
+      }
+    };
+    const validatePass = (rule, value, callback) => {
+      if (value.length < 3) {
+        callback(new Error("密码不能小于3位"));
+      } else {
+        callback();
+      }
+    };
+    return {
+      name: "login",
+      loginForm: {
+        username: "admin",
+        password: "111111"
+      },
+      loginRules: {
+        username: [
+          { required: true, trigger: "blur", validator: validateUsername }
+        ],
+        password: [{ required: true, trigger: "blur", validator: validatePass }]
+      },
+      isClose: true,
+      loading: false,
+      pwdType: "password"
+    };
+  },
+  methods: {
+    handleLogin() {
+      this.$refs.loginForm.validate(valid => {
+        if (valid) {
+          this.loading = true;
+          this.$store
+            .dispatch("Login", this.loginForm)
+            .then(() => {
+              this.loading = false;
+              console.log(123);
+              this.$router.push({ path: "/" });
+            })
+            .catch(() => {
+              this.loading = false;
+            });
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+    }
+  },
   components: {
     Head,
     Footer
@@ -66,7 +121,7 @@ export default {
       //background-color: #d13838;
       width: 800px;
       margin-left: 200px;
-      
+
       padding-top: 150px;
 
       .title {
@@ -84,17 +139,16 @@ export default {
         margin: 0 auto;
       }
       .loginbutton {
-
         width: 200px;
         padding-left: 140px;
-        //margin: auto auto; 
+        //margin: auto auto;
       }
       .loginbottom {
         font-size: 14px;
-        padding-left: 80px; 
-        .link { 
-        color:#225592;
-      } 
+        padding-left: 80px;
+        .link {
+          color: #225592;
+        }
       }
     }
   }
