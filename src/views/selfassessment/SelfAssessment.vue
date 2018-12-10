@@ -171,9 +171,12 @@
               </el-table>            
           </div>
           <div class="enterbtn">
-            <el-button type="primary"><p>北京市企业技术中心</p><p>建设管理告知承诺制源文件申请入口</p></el-button>
-            <el-button type="success"><p>北京市企业技术中心</p>资质企业自评入口</el-button>
+            <el-button type="success" style="padding:15px 70px 15px 35px"><i class="el-icon-info" style="float:left;padding:10px 10px 0 0;font-size:18px"></i>北京市企业技术中心</br>建设管理告知承诺制源文件申请入口</el-button>           
           </div>
+          <div class="enterbtn">
+            <el-button type="primary" style="padding:22px 20px"><i class="el-icon-info" style="padding:0 10px 0 0"></i>北京市企业技术中心资质企业自评通道入口</el-button>       
+          </div>
+          
         </div>
       </div>
 
@@ -397,7 +400,8 @@ export default {
   }
 }
 .enterbtn {
-  height: 100px;
-  line-height: 100px;
+  margin-top: 50px;
+  width: 600px;
+  float: left;
 }
 </style>

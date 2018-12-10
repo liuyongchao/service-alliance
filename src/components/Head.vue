@@ -9,11 +9,11 @@
     </div>
   </div>
           <ul class="nav">
-            <li class="active"><router-link tag="a" to="/">动态要闻</router-link></li>
-            <li><router-link tag="a" to="/selfassessment">企业自评</router-link></li>
-            <li><router-link tag="a" to="/industrymap">产业地图</router-link></li>
-            <li><router-link tag="a" to="/login">会员中心</router-link></li>
-            <li><router-link tag="a" to="/aboutus">关于我们</router-link></li>
+            <router-link tag="li" to="/" exact>动态要闻</router-link>
+            <router-link tag="li" to="/selfassessment" exact>企业自评</router-link>
+            <router-link tag="li" to="/industrymap" exact>产业地图</router-link>
+            <router-link tag="li" to="/login" exact>会员中心</router-link>
+            <router-link tag="li" to="/aboutus" exact>关于我们</router-link>
           </ul>
   </div>
 </template>
@@ -65,20 +65,18 @@ export default {
   margin: 0 auto;
   background-color: #0088d3;
   li {
+    height: 50px;
+    line-height: 50px;
+    color: #ffffff;
     float: left;
-    padding: 0 20px;
+    padding: 0 30px;
+    cursor: pointer;
   }
   li.active {
     background-color: #006da9;
   }
-  a {
-    color: #ffffff;
-    font-size: 14px;
-    line-height: 50px;
-    text-decoration: none;
-    padding: 5px;
-  }
-  a:hover {
+  li:hover {
+    background-color: #006ea969;
     color: gold;
   }
 }

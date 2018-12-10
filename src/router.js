@@ -5,7 +5,7 @@ import Router from "vue-router";
 import Home from "./views/Home.vue";
 import MemberCenter from "./views/MemberCenter.vue";
 import DynamicNews from "./views/dynamicnews/DynamicNews.vue";
-import SelfAssessment from "./views/SelfAssessment.vue";
+import SelfAssessment from "./views/selfassessment/SelfAssessment.vue";
 import IndustryMap from "./views/IndustryMap.vue";
 import AboutUS from "./views/AboutUS.vue";
 import Login from "./views/Login.vue";
@@ -18,6 +18,8 @@ import News from "./views/dynamicnews/News.vue";
 Vue.use(Router);
 
 const router = new Router({
+  //linkActiveClass: "active",
+  linkActiveClass: "active",
   routes: [
     {
       path: "/",
