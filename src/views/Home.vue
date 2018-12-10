@@ -55,7 +55,7 @@
             </ul>
           </div>
           <div class="center-right">
-            <div class="box"><p>联盟动态</p></div>
+            <div class="box"><p>企业自评</p></div>
             <img src="../assets/image/self-evaluation.png" alt="">
           </div>
         </div>
@@ -190,10 +190,12 @@ export default {
   }
   .center {
     height: 500px;
-    margin: 20px 0 0;
+    //width: 1400px;
+    margin: 20px 0 0 0;
     .center-left {
       width: 820px;
       display: inline-block;
+      margin-left: -20px;
       .box {
         border-bottom: 1px solid #0088d3;
         p {
@@ -272,8 +274,11 @@ export default {
     }
   }
   .bottom {
-    height: 400px;
+    height: 396px;
+    width: 1400px;
     padding: 20px 0 0;
+    
+    padding: 20px 0px 0 0px;
     .box {
       border-bottom: 1px solid #0088d3;
       p {
@@ -287,7 +292,7 @@ export default {
     }
     .bottom-left {
       float: left;
-      width: 386px;
+      width: 400px;
       display: inline-block;
       ul {
         height: 333px;
@@ -320,9 +325,10 @@ export default {
     }
     .bottom-center {
       float: left;
-      width: 386px;
+      width: 400px;
       display: inline-block;
       margin: 0 20px 0;
+      padding: 0px 0px 0px 0px ;
       ul {
         height: 333px;
         li {
@@ -339,13 +345,17 @@ export default {
           }
         }
       }
+
+      
     }
     .bottom-right {
       float: left;
-      width: 386px;
+      width: 360px;
       display: inline-block;
+      
+        //padding: 0px 28px 0px;
       img {
-        padding: 20px 0 0;
+        padding: 30px 0px 0px;
       }
     }
   }
