@@ -6,6 +6,8 @@ import Home from "./views/Home.vue";
 import MemberCenter from "./views/MemberCenter.vue";
 import DynamicNews from "./views/dynamicnews/DynamicNews.vue";
 import SelfAssessment from "./views/selfassessment/SelfAssessment.vue";
+import SelfAssessmentEnter from "./views/selfassessment/SelfAssessmentEnter.vue";
+import SelfEvaluate from "./views/selfassessment/SelfEvaluate.vue";
 import IndustryMap from "./views/IndustryMap.vue";
 import AboutUS from "./views/AboutUS.vue";
 import Login from "./views/Login.vue";
@@ -52,6 +54,16 @@ const router = new Router({
       path: "/selfassessment",
       name: "selfassessment",
       component: SelfAssessment
+    },
+    {
+      path: "/selfassessmententer",
+      name: "selfassessmententer",
+      component: SelfAssessmentEnter
+    },
+    {
+      path: "/selfevaluate",
+      name: "selfevaluate",
+      component: SelfEvaluate
     },
     {
       path: "/industrymap",

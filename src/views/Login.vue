@@ -85,7 +85,13 @@ export default {
             .then(() => {
               this.loading = false;
               console.log(123);
-              this.$router.push({ path: "/" });
+              let redirect = decodeURIComponent(
+                this.$route.query.redirect || "/"
+              );
+              this.$router.push({
+                //你需要接受路由的参数再跳转
+                path: redirect
+              });
             })
             .catch(() => {
               this.loading = false;

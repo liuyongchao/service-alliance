@@ -34,7 +34,6 @@ const user = {
             const data = response;
             setToken(data.token);
             commit("SET_TOKEN", data.token);
-            debugger;
             if (data.authorities && data.authorities.length > 0) {
               // 验证返回的authorities是否是一个非空数组
               commit("SET_AUTHORITIES", data.authorities);

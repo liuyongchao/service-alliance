@@ -8,6 +8,7 @@ import { getToken } from "@/utils/auth"; // 验权
 const whiteList = [
   "/login",
   "/selfassessment",
+  "/selfassessmententer",
   "/industrymap",
   "/",
   "/aboutus"
@@ -17,36 +18,23 @@ router.beforeEach((to, from, next) => {
   console.log(getToken());
   if (getToken()) {
     if (to.path === "/login") {
-      next({ path: "/" });
+      next("/");
       NProgress.done(); // if current page is dashboard will not trigger	afterEach hook, so manually handle it
     } else {
-      if (store.getters.authorities.length === 0) {
-        store
-          .dispatch("GetInfo")
-          .then(res => {
-            // 拉取用户信息
-            next();
-          })
-          .catch(err => {
-            store.dispatch("FedLogOut").then(() => {
-              Message.error(err || "Verification failed, please login again");
-              next({ path: "/" });
-            });
-          });
-      } else {
-        next();
-      }
+      next();
     }
   } else {
     if (whiteList.indexOf(to.path) !== -1) {
       next();
     } else {
-      next("/login");
+      next({
+        path: "/login",
+        query: { redirect: to.fullPath } //把要跳转的地址作为参数传到下一步
+      });
       NProgress.done();
     }
   }
 });
-
 router.afterEach(() => {
   NProgress.done(); // 结束Progress
 });
