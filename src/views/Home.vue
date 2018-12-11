@@ -8,9 +8,17 @@
             <img src="../assets/image/banner.png" alt="">
           </div>
           <div class="top-right">
-            <img src="../assets/image/introduction.png" alt="">
-            <p>北京企业技术中心创新服务联盟是在市经信委的指导与支持下成立的非营利性社会组织，负责《北京市企业技术中心建设评价规范》贯标工作，并为企业提供投资并购、政府申报、技术培训、区域间合作等服务。致力于搭建政府与企业间无障碍沟通桥梁，成为企业与企业间交流合作的纽带。</p>
+            <div class="top-right-top"  >
+              
+<div class="top-right-top-float">
+  
+                        <p>北京企业技术中心创新服务联盟是在市经信委的指导与支持下成立的非营利性社会组织，负责《北京市企业技术中心建设评价规范》贯标工作，并为企业提供投资并购、政府申报、技术培训、区域间合作等服务。致力于搭建政府与企业间无障碍沟通桥梁，成为企业与企业间交流合作的纽带。</p>
             <a href="">查看更多</a>
+
+</div>
+
+            
+            </div>
             <div class="top-right-left">服务</div>
             <div class="top-right-right">加入</div>
           </div>
@@ -55,7 +63,7 @@
             </ul>
           </div>
           <div class="center-right">
-            <div class="box"><p>联盟动态</p></div>
+            <div class="box"><p>企业自评</p></div>
             <img src="../assets/image/self-evaluation.png" alt="">
           </div>
         </div>
@@ -164,6 +172,21 @@ export default {
         display: block;
         padding: 0 10px 5px;
       }
+
+      .top-right-top{
+//height: 30px;
+background: url(../assets/image/introduction.png);background-repeat:no-repeat;background-size:cover;margin: 0,auto;
+        height: 360px;
+        width: 380px;
+      }
+      .top-right-top-float
+      { 
+         position:absolute;bottom:110px;left:0px; 
+         //color: #59b431;
+         p {color: #ece8e8;padding: 0px 10px 0px 10px;}
+         a {color: #ece8e8;padding: 0px 20px 0px 0px;}
+
+      }
       .top-right-left {
         width: 190px;
         height: 100px;
@@ -190,10 +213,12 @@ export default {
   }
   .center {
     height: 500px;
-    margin: 20px 0 0;
+    //width: 1400px;
+    margin: 20px 0 0 0;
     .center-left {
       width: 820px;
       display: inline-block;
+      margin-left: -20px;
       .box {
         border-bottom: 1px solid #0088d3;
         p {
@@ -207,7 +232,7 @@ export default {
       }
       li {
         height: 131px;
-        padding: 10px;
+        padding: 10px 0px 0px 0px;
         border-bottom: 1px solid #eeeeee;
         .news-image {
           width: 205px;
@@ -272,8 +297,11 @@ export default {
     }
   }
   .bottom {
-    height: 400px;
+    height: 396px;
+    width: 1400px;
     padding: 20px 0 0;
+    
+    padding: 20px 0px 0 0px;
     .box {
       border-bottom: 1px solid #0088d3;
       p {
@@ -287,7 +315,7 @@ export default {
     }
     .bottom-left {
       float: left;
-      width: 386px;
+      width: 400px;
       display: inline-block;
       ul {
         height: 333px;
@@ -320,9 +348,10 @@ export default {
     }
     .bottom-center {
       float: left;
-      width: 386px;
+      width: 400px;
       display: inline-block;
       margin: 0 20px 0;
+      padding: 0px 0px 0px 0px ;
       ul {
         height: 333px;
         li {
@@ -339,13 +368,17 @@ export default {
           }
         }
       }
+
+      
     }
     .bottom-right {
       float: left;
-      width: 386px;
+      width: 360px;
       display: inline-block;
+      
+        //padding: 0px 28px 0px;
       img {
-        padding: 20px 0 0;
+        padding: 30px 0px 0px;
       }
     }
   }

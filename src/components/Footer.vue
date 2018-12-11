@@ -11,40 +11,34 @@
   <dd>一周政策</dd>
 </dl>
 <dl>
-  <dt>动态要闻
+  <dt>企业自评
     <div class="line"></div>
-  </dt>
-  <dd>通知公告</dd>
-  <dd>新闻动态</dd>
-  <dd>前沿资讯</dd>
-  <dd>一周政策</dd>
+  </dt> 
+  
 </dl>
 <dl>
- <dt>动态要闻
+ <dt>产业地图
    <div class="line"></div>
- </dt>
-  <dd>通知公告</dd>
-  <dd>新闻动态</dd>
-  <dd>前沿资讯</dd>
-  <dd>一周政策</dd>
+ </dt> 
 </dl>
 <dl>
-  <dt>动态要闻
+  <dt>会员中心
     <div class="line"></div>
   </dt>
-  <dd>通知公告</dd>
-  <dd>新闻动态</dd>
-  <dd>前沿资讯</dd>
-  <dd>一周政策</dd>
+  <dd>会员动态</dd>
+  <dd>问卷调查</dd>
+  <dd>会员列表</dd>
+  <dd>会员权益</dd>
+  <dd>入会流程</dd>
 </dl>
 <dl>
-  <dt>动态要闻
+  <dt>关于我们
     <div class="line"></div>
   </dt>
-  <dd>通知公告</dd>
-  <dd>新闻动态</dd>
-  <dd>前沿资讯</dd>
-  <dd>一周政策</dd>
+  <dd>联盟介绍</dd>
+  <dd>组织架构</dd>
+  <dd>大事记</dd>
+  <dd>联系我们</dd>
 </dl>
 <dl>
   <div class="qrcode"></div> 

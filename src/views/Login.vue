@@ -115,7 +115,7 @@ export default {
   height: 100%;
   position: relative;
   min-height: 100%;
-  padding-bottom: 200px;
+  //padding-bottom: 200px;
   box-sizing: border-box;
   .content {
     width: 1200px;
