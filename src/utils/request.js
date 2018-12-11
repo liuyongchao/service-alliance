@@ -6,11 +6,9 @@ import store from "../store";
 const service = axios.create({
   //baseURL: process.env.BASE_API, // api的base_url
   //baseURL: "https://easy-mock.com/mock/5b6bea2cdfe6643d4e6bb9b8/vue-rjs",
-  baseURL: "http://192.168.65.54:8080/api/reception",
+  baseURL: "http://192.168.65.54:8081/api/backend",
   headers: {
-    "Access-Control-Allow-Credentials": true,
-    "Access-Control-Allow-Origin": "*",
-    "Content-Type": "application/x-www-form-urlencoded"
+    "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
   },
   timeout: 15000 // 请求超时时间
 });

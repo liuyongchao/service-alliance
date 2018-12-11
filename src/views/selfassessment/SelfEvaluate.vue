@@ -550,10 +550,7 @@ export default {
       this.axios({
         methods: "post",
         url: "/evaluate/self/evaluate",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        params: {
-          SelfEvaluateForm
-        }
+        data: SelfEvaluateForm
       }).then(res => {
         console.log(res);
       });
