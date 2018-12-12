@@ -4,7 +4,15 @@ export function login(username, password) {
   return request({
     url: "/login",
     method: "post",
-    data: "username=admin&password=adminadmin"
+    data: "username=" + username + "&password=" + password
+  });
+}
+
+export function register(registerForm) {
+  return request({
+    url: "/register",
+    method: "post",
+    data: registerForm
   });
 }
 

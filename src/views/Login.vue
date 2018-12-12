@@ -23,7 +23,7 @@
             <div class="loginbottom" style="display: block;">
               <a href="#" class="link" id="forgetpwd" target="_blank">忘了密码？</a>
               <span class="dotted">|</span>
-              <a href="#" class="link" target="_blank">注册新帐号</a>
+              <router-link class="link" tag="a" to="/register">注册新帐号</router-link>
               <span class="dotted">|</span>
               <a class="link" id="feedback_web" href="#" target="_blank">联系我们</a>
             </div>
@@ -62,7 +62,7 @@ export default {
       name: "login",
       loginForm: {
         username: "admin",
-        password: "111111"
+        password: "adminadmin"
       },
       loginRules: {
         username: [

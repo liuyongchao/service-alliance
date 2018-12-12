@@ -7,29 +7,50 @@
       <div class="register-left">
         <div>
           <el-form
-            ref="form"
+            :model="registerForm"
             :rules="rules"
           >
+            <el-form-item
+              label-width="100px"
+              label="用户名"
+              prop="name"
+            >
+              <el-input v-model="registerForm.username" placeholder="请输入用户名"></el-input>
+            </el-form-item>
+            <el-form-item
+              label-width="100px"
+              label="密码"
+              prop="name"
+            >
+              <el-input v-model="registerForm.password" placeholder="请输入密码"></el-input>
+            </el-form-item>
+            <el-form-item
+              label-width="100px"
+              label="确认密码"
+              prop="name"
+            >
+              <el-input v-model="registerForm.password1" placeholder="请再次输入密码"></el-input>
+            </el-form-item>
             <el-form-item
               label-width="100px"
               label="联系人"
               prop="name"
             >
-              <el-input placeholder="请输入联系人"></el-input>
+              <el-input v-model="registerForm.contact" placeholder="请输入联系人"></el-input>
             </el-form-item>
             <el-form-item
               label-width="100px"
               label="联系电话"
               prop="name"
             >
-              <el-input placeholder="请输入联系电话"></el-input>
+              <el-input v-model="registerForm.phoneNum" placeholder="请输入联系电话"></el-input>
             </el-form-item>
             <el-form-item
               label-width="100px"
               label="电子邮箱"
               prop="name"
             >
-              <el-input placeholder="请输入电子邮箱"></el-input>
+              <el-input v-model="registerForm.email" placeholder="请输入电子邮箱"></el-input>
             </el-form-item>
           </el-form>
         </div>
@@ -38,6 +59,7 @@
         <div>
           <el-form
             ref="form"
+            :model="registerForm"
             :rules="rules"
           >
             <el-form-item
@@ -45,48 +67,48 @@
               label="企业名称"
               prop="name"
             >
-              <el-input placeholder="请输入企业名称"></el-input>
+              <el-input v-model="registerForm.companyName" placeholder="请输入企业名称"></el-input>
             </el-form-item>
             <el-form-item
               label-width="100px"
               label="通讯地址"
               prop="name"
             >
-              <el-input placeholder="请输入通讯地址"></el-input>
+              <el-input v-model="registerForm.address" placeholder="请输入通讯地址"></el-input>
             </el-form-item>
             <el-form-item
               label-width="100px"
               label="主营业务"
               prop="name"
             >
-              <el-input placeholder="请输入主营业务"></el-input>
+              <el-input v-model="registerForm.business" placeholder="请输入主营业务"></el-input>
             </el-form-item>
             <el-form-item
               label-width="100px"
               label="企业负责人"
               prop="name"
             >
-              <el-input placeholder="请输入企业负责人"></el-input>
+              <el-input v-model="registerForm.head" placeholder="请输入企业负责人"></el-input>
             </el-form-item>
             <el-form-item
               label-width="100px"
               label="是否上市"
               prop="name"
             >
-              <el-input placeholder="是否上市"></el-input>
+              <el-input v-model="registerForm.isListed" placeholder="是否上市"></el-input>
             </el-form-item>
             <el-form-item
               label-width="100px"
               label="上市代码"
               prop="name"
             >
-              <el-input placeholder="请输入上市代码"></el-input>
+              <el-input v-model="registerForm.listedCode" placeholder="请输入上市代码"></el-input>
             </el-form-item>
-            
+
             <el-form-item>
               <el-button
                 type="primary"
-                @click="onSubmit"
+                @click="registerSubmit"
               >注册</el-button>
             </el-form-item>
           </el-form>
@@ -103,7 +125,32 @@
 //import HelloWorld from "@/components/HelloWorld.vue";
 import Head from "@/components/Head.vue";
 import Footer from "@/components/Footer.vue";
+import { register } from "@/api/login";
 export default {
+  data() {
+    return {
+      registerForm: {
+        username: "",
+        password: "",
+        contact: "",
+        phoneNum: "",
+        email: "",
+        companyName: "",
+        address: "",
+        business: "",
+        head: "",
+        isListed: "",
+        listedCode: ""
+      }
+    };
+  },
+  methods: {
+    registerSubmit() {
+      register(this.registerForm).then(res => {
+        console.log(res);
+      });
+    }
+  },
   components: {
     Head,
     Footer

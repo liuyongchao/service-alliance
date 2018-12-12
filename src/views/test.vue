@@ -1,22 +1,11 @@
 <template>
-  <div class="container">
-    <div class="title">
-
-    </div>
-
-  <div class="map">
-    <div class="map-top">
-      <div class="map-top-left">
-        <v-chart :options = "regionBar" :auto-resize = true style="width:100%;height:100%"></v-chart>
-      </div>
-      <baidu-map
-        :center="center"
-        :zoom="zoom"
-        @ready="handler"
-        class="map-top-center"
-        :mapStyle="mapStyle"
-        :scroll-wheel-zoom="true"
-      >
+    <div class="map">
+        <div class="maphead"></div>
+<div class="mapcontent">
+    <div class="mapcontenttop">
+        <div class="left"><v-chart :options = "regionBar" :auto-resize = true style="width:100%;height:100%"></v-chart></div>
+        <div class="middle">
+    <baidu-map style="width:100%;height:100%"  :center="center" :zoom="zoom" @ready="handler" :mapStyle="mapStyle" :scroll-wheel-zoom="true">
       <bm-point-collection :points="points" v-for="(points,index) in field_points" :key="index" shape="BMAP_POINT_SHAPE_CIRCLE" :color="pointColor[index]" size="BMAP_POINT_SIZE_NORMAL"  @click="clickHandler(index)"></bm-point-collection>
       <bm-boundary name="北京市" :strokeWeight="3" strokeColor="#102749" :fillOpacity = 0.1></bm-boundary>    
       <bm-boundary name="北京市东城区" :strokeWeight="1" strokeColor="#020a17ff" fillColor="#102749" :fillOpacity = 0.2 ></bm-boundary>
@@ -36,25 +25,16 @@
       <bm-boundary name="北京市密云区" :strokeWeight="1" strokeColor="#020a17ff" fillColor="#102749" :fillOpacity = 0.2></bm-boundary>
       <bm-boundary name="北京市延庆区" :strokeWeight="1" strokeColor="#020a17ff" fillColor="#102749" :fillOpacity = 0.2></bm-boundary>
       </baidu-map>
-      <div class="map-top-right">
-        <v-chart :options = "fieldPie" :auto-resize = true style="width:100%;height:100%"></v-chart>
-      </div>
+        </div>
+        <div class="right"><v-chart :options = "fieldPie" :auto-resize = true style="width:100%;height:100%"></v-chart></div>
     </div>
-    <div class="map-bottom">
-      <div class="map-bottom-left1">
-        <v-chart :options = "numberPie" :auto-resize = true style="width:100%;height:100%"></v-chart>
-      </div>
-      <div class="map-bottom-left2">
-        <v-chart :options = "numberLine" :auto-resize = true style="width:100%;height:100%"></v-chart>
-      </div>
-      <div class="map-bottom-right1">
-        <v-chart class = "typeBar" :options = "typeBar" :auto-resize = true style="width:100%;height:100%"></v-chart>
-      </div>
-      <div class="map-bottom-right2">
-        <v-chart :options = "revenuePie" :auto-resize = true style="width:100%;height:100%"></v-chart>
-      </div>
+    <div class="mapcontentbottom">
+        <div class="left1"><v-chart :options = "numberPie" :auto-resize = true style="width:100%;height:100%"></v-chart></div>
+        <div class="left2"><v-chart :options = "numberLine" :auto-resize = true style="width:100%;height:100%"></v-chart></div>
+        <div class="right1"><v-chart class = "typeBar" :options = "typeBar" :auto-resize = true style="width:100%;height:100%"></v-chart></div>
+        <div class="right2"><v-chart :options = "revenuePie" :auto-resize = true style="width:100%;height:100%"></v-chart></div>
     </div>
-  </div>
+</div>
     </div>
 </template>
 <script>
@@ -82,17 +62,35 @@ export default {
     "v-chart": ECharts
   },
   data() {
-    let data = [];
+    let getDpr = (function getDpr() {
+      var dpr = document.querySelector("html").scrollHeight;
+      console.log(dpr);
 
-    for (let i = 0; i <= 360; i++) {
-      let t = (i / 180) * Math.PI;
-      let r = Math.sin(2 * t) * Math.cos(2 * t);
-      data.push([r, i]);
-    }
+      if (dpr >= 2490) {
+        return 30;
+      } else if (dpr < 2490 && dpr > 1024) {
+        return 25;
+      } else if (dpr <= 1024 && dpr > 876) {
+        return 14;
+      } else {
+        return 12;
+      }
+    })();
+
     return {
       //区域分布情况
       regionBar: {
+        title: {
+          text: "区域分布情况",
+          top: "3%",
+          left: "center",
+          textStyle: {
+            color: "#ffffff",
+            fontSize: getDpr
+          }
+        },
         grid: {
+          top: "20%",
           containLabel: true
         },
         tooltip: {
@@ -113,6 +111,7 @@ export default {
             rotate: 45, //倾斜度 -90 至 90 默认为0
             margin: 10,
             textStyle: {
+              fontSize: getDpr,
               fontWeight: "bolder",
               color: "#7089cb"
             }
@@ -146,7 +145,7 @@ export default {
           },
           axisLabel: {
             fontWeight: "bold",
-            fontSize: 14
+            fontSize: getDpr
           },
           splitLine: {
             show: true,
@@ -207,7 +206,17 @@ export default {
       },
       //领域分布情况
       fieldPie: {
+        title: {
+          text: "领域分布情况",
+          top: "3%",
+          left: "center",
+          textStyle: {
+            color: "#ffffff",
+            fontSize: getDpr
+          }
+        },
         grid: {
+          top: "20%",
           containLabel: true
         },
         tooltip: {
@@ -240,7 +249,7 @@ export default {
             type: "pie",
             label: {
               normal: {
-                fontSize: 16,
+                fontSize: getDpr,
                 fontWeight: "bold",
                 formatter: "{c}\n",
                 padding: [0, -40]
@@ -297,7 +306,7 @@ export default {
             textStyle: {
               color: "#ffffff",
               align: "center",
-              fontSize: 16,
+              fontSize: getDpr,
               fontFamily: "Microsoft YaHei"
             }
           },
@@ -308,7 +317,7 @@ export default {
             textStyle: {
               color: "#ffffff",
               align: "center",
-              fontSize: 16,
+              fontSize: getDpr,
               fontFamily: "Microsoft YaHei"
             }
           }
@@ -398,7 +407,17 @@ export default {
       },
       //企业技术中心数量走势
       numberLine: {
+        title: {
+          text: "企业技术中心数量走势",
+          top: "3%",
+          left: "center",
+          textStyle: {
+            color: "#ffffff",
+            fontSize: getDpr
+          }
+        },
         grid: {
+          top: "20%",
           containLabel: true
         },
         tooltip: {
@@ -473,13 +492,13 @@ export default {
               }
             },
             nameTextStyle: {
-              fontSize: 14,
+              fontSize: getDpr,
               fontWeight: "bold"
             },
             axisLabel: {
               formatter: "{value}",
               fontWeight: "bold",
-              fontSize: 14
+              fontSize: getDpr
             },
             splitLine: {
               show: true,
@@ -495,7 +514,7 @@ export default {
             max: 100,
             interval: 20,
             nameTextStyle: {
-              fontSize: 14,
+              fontSize: getDpr,
               fontWeight: "bold"
             },
             axisLine: {
@@ -506,7 +525,7 @@ export default {
             axisLabel: {
               formatter: "{value}",
               fontWeight: "bold",
-              fontSize: 14
+              fontSize: getDpr
             },
             splitLine: {
               show: false,
@@ -564,18 +583,19 @@ export default {
           }
         ]
       },
-      //企业所有制分布/上市情况
+      //北京市企业技术中心企业类型分布
       typeBar: {
         title: {
-          text: "北京市企业技术中心企业类型分布",
+          text: "企业技术中心数量走势",
+          top: "3%",
           left: "center",
-          top: "8%",
           textStyle: {
             color: "#ffffff",
-            fontSize: 14
+            fontSize: getDpr
           }
         },
         grid: {
+          top: "20%",
           containLabel: true
         },
         tooltip: {
@@ -614,7 +634,7 @@ export default {
           },
           axisLabel: {
             fontWeight: "bold",
-            fontSize: 14
+            fontSize: getDpr
           },
           splitLine: {
             show: false,
@@ -658,7 +678,17 @@ export default {
       },
       //北京市企业技术中心发展情况
       revenuePie: {
+        title: {
+          text: "企业技术中心数量走势",
+          top: "3%",
+          left: "center",
+          textStyle: {
+            color: "#ffffff",
+            fontSize: getDpr
+          }
+        },
         grid: {
+          top: "20%",
           containLabel: true
         },
         tooltip: {
@@ -690,7 +720,7 @@ export default {
             type: "pie",
             label: {
               normal: {
-                fontSize: 16,
+                fontSize: getDpr,
                 fontWeight: "bold",
                 formatter: "{c}\n",
                 padding: [0, -40]
@@ -895,10 +925,6 @@ export default {
       }
     };
   },
-  created() {
-    // 插入 10 个随机点
-    this.addPoints();
-  },
   mounted() {
     mapIndustries().then(res => {
       console.log(res);
@@ -979,72 +1005,71 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.container {
-  background: url(../assets/image/background.jpg) no-repeat;
+<style lang="scss">
+.map {
   width: 100%;
   height: 100%;
-  position: fixed;
-  background-size: cover;
-  .title {
-    width: 407px;
-    height: 20%;
-    margin: 0 auto;
-    background: url(../assets/image/title.png) no-repeat 0% 50%;
-  }
-  .map {
-    height: 80%;
-    .map-top {
-      height: 60%;
-      .map-top-left {
-        height: 100%;
-        width: 30%;
-        float: left;
-        background: url("../assets/image/map-top-left.png") center no-repeat;
-      }
-      .map-top-center {
-        height: 100%;
-        width: 40%;
-        float: left;
-        background: url("../assets/image/map-top-middle.png") center no-repeat;
-      }
-      .map-top-right {
-        height: 100%;
-        width: 30%;
-        float: left;
-        background: url("../assets/image/map-top-right.png") center no-repeat;
-      }
+  background: url(../assets/image/background.jpg) no-repeat;
+  background-size: 100% 100%;
+}
+.maphead {
+  height: 15%;
+}
+.mapcontent {
+  height: 85%;
+  .mapcontenttop {
+    height: 60%;
+    .left {
+      height: 100%;
+      width: 25%;
+      float: left;
+      background: url(../assets/image/map-top-left.png) no-repeat;
+      background-size: 100% 100%;
     }
-    .map-bottom {
-      height: 40%;
-      .map-bottom-left1 {
-        height: 100%;
-        width: 25%;
-        float: left;
-        background: url("../assets/image/map-bottom-left1.png") center no-repeat;
-        background-size: 100% 100%;
-      }
-      .map-bottom-left2 {
-        height: 100%;
-        width: 25%;
-        float: left;
-        background: url("../assets/image/map-bottom-left2.png") center no-repeat;
-      }
-      .map-bottom-right1 {
-        height: 100%;
-        width: 25%;
-        float: left;
-        background: url(../assets/image/map-bottom-right1.png) center center
-          no-repeat;
-      }
-      .map-bottom-right2 {
-        height: 100%;
-        width: 25%;
-        float: left;
-        background: url(../assets/image/map-bottom-right1.png) center center
-          no-repeat;
-      }
+    .middle {
+      height: 100%;
+      width: 50%;
+      float: left;
+      background: url(../assets/image/map-top-middle.png) no-repeat;
+      background-size: 100% 100%;
+    }
+    .right {
+      height: 100%;
+      width: 25%;
+      float: left;
+      background: url(../assets/image/map-top-right.png) no-repeat;
+      background-size: 100% 100%;
+    }
+  }
+  .mapcontentbottom {
+    height: 40%;
+    .left1 {
+      height: 100%;
+      width: 25%;
+      float: left;
+      background: url(../assets/image/map-bottom-left1.png) no-repeat;
+      background-size: 100% 100%;
+    }
+    .left2 {
+      height: 100%;
+      width: 25%;
+      float: left;
+      background: url(../assets/image/map-bottom-left2.png) no-repeat;
+      background-size: 100% 100%;
+    }
+    .right1 {
+      height: 100%;
+      width: 25%;
+      float: left;
+      background: url(../assets/image/map-bottom-right1.png) no-repeat;
+      background-size: 100% 100%;
+    }
+    .right2 {
+      height: 100%;
+      width: 25%;
+      float: left;
+      background: url(../assets/image/map-bottom-right2.png) no-repeat;
+      background-size: 100% 100%;
     }
   }
 }

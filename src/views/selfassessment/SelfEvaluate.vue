@@ -351,11 +351,13 @@
 //import HelloWorld from "@/components/HelloWorld.vue";
 import Head from "@/components/Head.vue";
 import Footer from "@/components/Footer.vue";
+import { selfEvaluate, selfTrades } from "@/api/evaluate";
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
       minHeight: 0,
-      trade: [{ id: 1, name: "农业" }, { id: 2, name: "工业" }], //evaluate/self/trades 接口获取
+      trade: "", //evaluate/self/trades 接口获取
       SelfEvaluateForm: {
         tradeId: [
           {
@@ -519,8 +521,8 @@ export default {
   methods: {
     SelfEvaluateSubmit() {
       const SelfEvaluateForm = {
-        basicId: "1",
-        basicSecret: "2",
+        basicId: this.basicId,
+        basicSecret: this.basicSecret,
         tradeId: this.SelfEvaluateForm.tradeId[0].column2,
         income: this.SelfEvaluateForm.innovateFee[0].column2,
         fundsSpendIncomeProportion: this.SelfEvaluateForm.innovateFee[1]
@@ -547,12 +549,17 @@ export default {
         smallPrize1num: this.SelfEvaluateForm.provincialPrize[1].column2,
         smallPrize2num: this.SelfEvaluateForm.provincialPrize[2].column2
       };
-      this.axios({
-        methods: "post",
-        url: "/evaluate/self/evaluate",
-        data: SelfEvaluateForm
-      }).then(res => {
+      console.log(SelfEvaluateForm);
+      selfEvaluate(SelfEvaluateForm).then(res => {
         console.log(res);
+        const h = this.$createElement;
+        this.$confirm({
+          title: "消息",
+          message: h("p", null, [
+            h("span", null, "内容可以是 "),
+            h("i", { style: "color: teal" }, "VNode")
+          ])
+        });
       });
     },
     SelfEvaluate() {
@@ -581,7 +588,13 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapGetters(["basicId", "basicSecret"])
+  },
   mounted() {
+    selfTrades().then(res => {
+      this.trade = res;
+    });
     this.minHeight = document.documentElement.clientHeight - 200;
     var me = this;
     window.onresize = function() {

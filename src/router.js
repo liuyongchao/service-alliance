@@ -12,6 +12,7 @@ import IndustryMap from "./views/IndustryMap.vue";
 import AboutUS from "./views/AboutUS.vue";
 import Login from "./views/Login.vue";
 import Register from "./views/Register.vue";
+import test from "./views/test.vue";
 
 // 二级路由
 import Notice from "./views/dynamicnews/Notice.vue";
@@ -23,6 +24,11 @@ const router = new Router({
   //linkActiveClass: "active",
   linkActiveClass: "active",
   routes: [
+    {
+      path: "/test",
+      name: "test",
+      component: test
+    },
     {
       path: "/",
       name: "home",
