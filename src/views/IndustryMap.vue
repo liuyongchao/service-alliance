@@ -1,18 +1,22 @@
 <template>
     <div class="map">
         <div class="maphead"></div>
-<div class="mapcontent">
+<div class="mapcontent" :style="{fontSize: fontSize + 'px' }">
+    <div class="maptophead">
+      <div class="left"><h1>区域维度</h1></div>
+      <div class="middle"></div>
+      <div class="right"><h1>领域维度</h1></div>
+    </div>
     <div class="mapcontenttop">
-
         <div class="left">
-          <div class="left-head"><h1>区域维度</h1> </div>
-          <div class="left-content">
-            <v-chart ref="regionBar" :options = "regionBar" :auto-resize = true style="width:100%;height:100%"></v-chart>
-            </div>       
+          <div class="button button1"  @click="regionIndustryAmountClick"><h1 :style="{color:colorBtn[0][0]}">数量</h1></div>
+          <div class="button button2" @click="regionIndustryIncomeClick"><h1 :style="{color:colorBtn[0][1]}">营收</h1></div>
+          <div class="button button3" @click="regionPatentAmountClick"><h1 :style="{color:colorBtn[0][2]}">专利</h1></div>
+            <v-chart ref="regionBar" :options = "regionBar" :auto-resize = true style="width:100%;height:100%"></v-chart>    
           </div>
         <div class="middle">
-    <baidu-map style="width:98.5%;height:98.5%;margin:0 auto;padding:5px 5px"  :center="center" :zoom="zoom" @ready="handler" :mapStyle="mapStyle" :scroll-wheel-zoom="true">
-      <bm-point-collection :points="points" v-for="(points,index) in field_points" :key="index" shape="BMAP_POINT_SHAPE_CIRCLE" :color="pointColor[index]" size="BMAP_POINT_SIZE_NORMAL"  @click="clickHandler(index)"></bm-point-collection>
+    <baidu-map style="width:98.5%;height:98.5%;margin:0 auto;padding:3px"  :center="center" :zoom="zoom" @ready="handler" :mapStyle="mapStyle" :scroll-wheel-zoom="true">
+      <bm-point-collection title="points.poi" :points="points" v-for="(points,index) in field_points" :key="index" shape="BMAP_POINT_SHAPE_CIRCLE" :color="pointColor[index]" size="BMAP_POINT_SIZE_NORMAL"  @click="clickHandler"></bm-point-collection>
       <bm-boundary name="北京市" :strokeWeight="3" strokeColor="#102749" :fillOpacity = 0.1></bm-boundary>    
       <bm-boundary name="北京市东城区" :strokeWeight="1" strokeColor="#020a17ff" fillColor="#102749" :fillOpacity = 0.2 ></bm-boundary>
       <bm-boundary name="北京市西城区" :strokeWeight="1" strokeColor="#020a17ff" fillColor="#102749" :fillOpacity = 0.2 ></bm-boundary>
@@ -32,10 +36,24 @@
       <bm-boundary name="北京市延庆区" :strokeWeight="1" strokeColor="#020a17ff" fillColor="#102749" :fillOpacity = 0.2></bm-boundary>
       </baidu-map>
         </div>
-        <div class="right"><v-chart ref="fieldPie" :options = "fieldPie" :auto-resize = true style="width:100%;height:100%"></v-chart></div>
+        <div class="right">
+          <div class="button button1"  @click="fieldIndustryAmountClick"><h1 :style="{color:colorBtn[1][0]}">数量</h1></div>
+          <div class="button button2" @click="fieldIndustryIncomeClick"><h1 :style="{color:colorBtn[1][1]}">营收</h1></div>
+          <div class="button button3" @click="fieldPatentAmountClick"><h1 :style="{color:colorBtn[1][2]}">专利</h1></div>
+            <v-chart ref="fieldPie" :options = "fieldPie" :auto-resize = true style="width:100%;height:100%"></v-chart></div>
+    </div>
+    <div class="mapbottomhead">
+      <div class="left1"><h1>三城一区</h1></div>
+      <div class="left2"><h1>企业技术中心数量走势</h1></div>
+      <div class="right1"><h1>企业所有制分布/上市情况</h1></div>
+      <div class="right2"><h1>北京市企业技术中心发展情况</h1></div>
     </div>
     <div class="mapcontentbottom">
-        <div class="left1"><v-chart ref="numberPie" :options = "numberPie" :auto-resize = true style="width:100%;height:100%"></v-chart></div>
+        <div class="left1">
+          <div class="button button1"  @click="regionIndustryAmountClick"><h1 :style="{color:colorBtn[2][0]}">数量</h1></div>
+          <div class="button button2" @click="regionIndustryIncomeClick"><h1 :style="{color:colorBtn[2][1]}">营收</h1></div>
+          <div class="button button3" @click="regionPatentAmountClick"><h1 :style="{color:colorBtn[2][2]}">专利</h1></div>
+          <v-chart ref="numberPie" :options = "numberPie" :auto-resize = true style="width:100%;height:100%"></v-chart></div>
         <div class="left2"><v-chart ref="numberLine" :options = "numberLine" :auto-resize = true style="width:100%;height:100%"></v-chart></div>
         <div class="right1"><v-chart ref="typeBar" class = "typeBar" :options = "typeBar" :auto-resize = true style="width:100%;height:100%"></v-chart></div>
         <div class="right2"><v-chart ref="revenuePie" :options = "revenuePie" :auto-resize = true style="width:100%;height:100%"></v-chart></div>
@@ -85,7 +103,14 @@ export default {
 
     return {
       //区域分布情况
-      chart: null,
+      colorBtn: [
+        ["#7089cb", "#ffffff", "#ffffff"],
+        ["#7089cb", "#ffffff", "#ffffff"],
+        ["#7089cb", "#ffffff", "#ffffff"]
+      ],
+      regionData: [],
+      fieldData: [],
+      fontSize: getDpr + 2,
       regionBar: {
         title: {
           text: "区域分布情况",
@@ -98,6 +123,7 @@ export default {
         },
         grid: {
           top: "25%",
+          bottom: "5%",
           containLabel: true
         },
         tooltip: {
@@ -260,17 +286,16 @@ export default {
               normal: {
                 color: function(params) {
                   var colorList = [
-                    "#d52532",
-                    "#e54918",
-                    "#eb7616",
-                    "#21fef9",
-                    "#53b0fe",
-                    "#cd79d1",
-                    "#fc7498",
-                    "#6dff67",
-                    "#fe9625",
-                    "#114e87",
-                    "#626463"
+                    "#20fef7",
+                    "#52afff",
+                    "#cd7ad2",
+                    "#ff7596",
+                    "#ff7596 ",
+                    "#ff9625",
+                    "#104f88",
+                    "#636363",
+                    "#6eff68",
+                    "#cd7ad2"
                   ];
                   return colorList[params.dataIndex];
                 }
@@ -398,6 +423,7 @@ export default {
         // },
         grid: {
           top: "25%",
+          bottom: "5%",
           containLabel: true
         },
         tooltip: {
@@ -533,6 +559,7 @@ export default {
         },
         grid: {
           top: "25%",
+          bottom: "5%",
           containLabel: true
         },
         tooltip: {
@@ -647,7 +674,7 @@ export default {
               color: "#7089cb",
               fontSize: getDpr
             },
-            data: ["5亿以下", "5亿-10亿", "10亿-100亿"]
+            data: ["5亿以下", "5-10亿", "10-100亿"]
           },
           {
             orient: "horizontal",
@@ -656,7 +683,7 @@ export default {
               color: "#7089cb",
               fontSize: getDpr
             },
-            data: ["100亿-500亿", "500亿以上"]
+            data: ["100-500亿", "500亿以上"]
           }
         ],
 
@@ -679,23 +706,17 @@ export default {
               normal: {
                 color: function(params) {
                   var colorList = [
-                    "#d52532",
-                    "#e54918",
-                    "#eb7616",
-                    "#21fef9",
-                    "#53b0fe",
-                    "#cd79d1",
-                    "#fc7498",
-                    "#6dff67",
-                    "#fe9625",
-                    "#114e87",
-                    "#626463"
+                    "#6eff68",
+                    "#cd7ad2",
+                    "#20fef7",
+                    "#ff7596",
+                    "#ee8d24"
                   ];
                   return colorList[params.dataIndex];
                 }
               }
             },
-            radius: ["30%", "40%"],
+            radius: ["35%", "40%"],
             center: ["50%", "50%"],
             avoidLabelOverlap: false,
             data: []
@@ -892,8 +913,10 @@ export default {
             );
             const position = {
               lat: bd_lat_lng[0],
-              lng: bd_lat_lng[1]
+              lng: bd_lat_lng[1],
+              poi: resData[i]
             };
+
             field_point.push(position);
           }
         }
@@ -941,7 +964,10 @@ export default {
             name: res[i].name
           });
         }
-        this.fieldPie.series[0].data = patentAmount;
+        this.fieldData.push(industryAmount);
+        this.fieldData.push(industryIncome);
+        this.fieldData.push(patentAmount);
+        this.fieldPie.series[0].data = industryAmount;
       }),
       mapIndustryRegion().then(res => {
         console.log("区域维度", res);
@@ -957,6 +983,9 @@ export default {
             }
           }
         }
+        this.regionData.push(industryAmount);
+        this.regionData.push(industryIncome);
+        this.regionData.push(patentAmount);
         this.regionBar.series[0].data = industryAmount;
       }),
       mapListAmount().then(res0 => {
@@ -1002,14 +1031,40 @@ export default {
     });
   },
   methods: {
+    regionIndustryAmountClick() {
+      this.colorBtn[0].splice(0, 3, "#7089cb", "#ffffff", "#ffffff");
+      console.log(this.colorBtn);
+
+      this.regionBar.series[0].data = this.regionData[0];
+    },
+    regionIndustryIncomeClick() {
+      this.colorBtn[0].splice(0, 3, "#ffffff", "#7089cb", "#ffffff");
+      this.regionBar.series[0].data = this.regionData[1];
+    },
+    regionPatentAmountClick() {
+      this.colorBtn[0].splice(0, 3, "#ffffff", "#ffffff", "#7089cb");
+      this.regionBar.series[0].data = this.regionData[2];
+    },
+    fieldIndustryAmountClick() {
+      this.colorBtn[1].splice(0, 3, "#7089cb", "#ffffff", "#ffffff");
+      this.fieldPie.series[0].data = this.fieldData[0];
+    },
+    fieldIndustryIncomeClick() {
+      this.colorBtn[1].splice(0, 3, "#ffffff", "#7089cb", "#ffffff");
+      this.fieldPie.series[0].data = this.fieldData[1];
+    },
+    fieldPatentAmountClick() {
+      this.colorBtn[1].splice(0, 3, "#ffffff", "#ffffff", "#7089cb");
+      this.fieldPie.series[0].data = this.fieldData[2];
+    },
     handler({ BMap, map }) {
       this.center.lng = 116.71575;
       this.center.lat = 40.255047;
       this.zoom = 9;
     },
-    clickHandler(index) {
-      console.log(index);
+    clickHandler(e) {
       //alert(`单击点的坐标为：${e.point.lng}, ${e.point.lat}`);
+      console.log(e);
     },
     gaoDeToBaidu(gd_lng, gd_lat) {
       const PI = (3.14159265358979324 * 3000.0) / 180.0;
@@ -1033,76 +1088,218 @@ export default {
   background-size: 100% 100%;
 }
 .maphead {
-  height: 15%;
+  height: 10%;
 }
 .mapcontent {
   width: 95%;
   margin: 0 auto;
-  height: 85%;
-  .mapcontenttop {
-    height: 55%;
+  height: 90%;
+  .maptophead {
+    position: relative;
+    height: 5%;
+    color: #0de8eb;
+    text-align: left;
+    padding: 1% 0;
+    h1 {
+      position: absolute;
+      top: 40%;
+      padding: 0 2% 0;
+    }
     .left {
       height: 100%;
-      width: 25%;
+      width: 23%;
       float: left;
-
-      .left-head {
-        height: 15%;
-        color: #0debef;
-        text-align: left;
-        background: url(../assets/image/background-head.png) 0% 0% no-repeat;
-        h1 {
-          padding: 15px 0 0 30px;
-        }
+      margin-right: 2%;
+      background: url(../assets/image/background-head.png) no-repeat;
+      background-size: 100% 100%;
+      // background: url(../assets/image/background-head.png) 0% 0% no-repeat;
+    }
+    .middle {
+      height: 100%;
+      width: 50%;
+      float: left;
+      // background: url(../assets/image/background-head.png) no-repeat;
+      // background-size: 50% 100%;
+    }
+    .right {
+      height: 100%;
+      width: 23%;
+      float: left;
+      margin-left: 2%;
+      background: url(../assets/image/background-head.png) no-repeat;
+      background-size: 100% 100%;
+    }
+  }
+  .mapbottomhead {
+    position: relative;
+    height: 5%;
+    color: #0de8eb;
+    text-align: left;
+    padding: 1% 0;
+    h1 {
+      position: absolute;
+      top: 40%;
+      padding: 0 30px 0;
+    }
+    .left1 {
+      height: 100%;
+      width: 23%;
+      float: left;
+      margin-right: 2%;
+      background: url(../assets/image/background-head.png) no-repeat;
+      background-size: 100% 100%;
+    }
+    .left2 {
+      height: 100%;
+      width: 24%;
+      float: left;
+      margin-right: 2%;
+      background: url(../assets/image/background-head.png) no-repeat;
+      background-size: 100% 100%;
+    }
+    .right1 {
+      height: 100%;
+      width: 24%;
+      float: left;
+      background: url(../assets/image/background-head.png) no-repeat;
+      background-size: 100% 100%;
+    }
+    .right2 {
+      height: 100%;
+      width: 23%;
+      float: left;
+      margin-left: 2%;
+      background: url(../assets/image/background-head.png) no-repeat;
+      background-size: 100% 100%;
+    }
+  }
+  .button {
+    position: absolute;
+    color: #ffffff;
+    cursor: pointer;
+    z-index: 1;
+    border: 1px solid #7089cb;
+    h1 {
+      padding-top: 6%;
+    }
+  }
+  .button:hover {
+    color: #7089cb;
+  }
+  .mapcontenttop {
+    height: 50%;
+    .left {
+      height: 100%;
+      width: 23%;
+      float: left;
+      margin-right: 2%;
+      position: relative;
+      background: url(../assets/image/map-top-left.png) no-repeat;
+      background-size: 100% 100%;
+      .button1 {
+        height: 6%;
+        width: 20%;
+        top: 15%;
+        left: 18%;
       }
-      .left-content {
-        height: 85%;
-        background: url(../assets/image/map-top-left.png) no-repeat;
-        background-size: 100% 100%;
+      .button2 {
+        height: 6%;
+        width: 20%;
+        top: 15%;
+        left: 40%;
+      }
+      .button3 {
+        height: 6%;
+        width: 20%;
+        top: 15%;
+        right: 18%;
       }
     }
     .middle {
       height: 100%;
       width: 50%;
       float: left;
+      color: #ffffff;
       background: url(../assets/image/map-top-middle.png) no-repeat;
       background-size: 100% 100%;
     }
     .right {
       height: 100%;
-      width: 25%;
+      width: 23%;
       float: left;
+      margin-left: 2%;
+      position: relative;
       background: url(../assets/image/map-top-right.png) no-repeat;
       background-size: 100% 100%;
+      .button1 {
+        height: 6%;
+        width: 20%;
+        top: 15%;
+        left: 18%;
+      }
+      .button2 {
+        height: 6%;
+        width: 20%;
+        top: 15%;
+        left: 40%;
+      }
+      .button3 {
+        height: 6%;
+        width: 20%;
+        top: 15%;
+        right: 18%;
+      }
     }
   }
   .mapcontentbottom {
-    height: 40%;
+    height: 30%;
     .left1 {
       height: 100%;
-      width: 25%;
+      width: 23%;
       float: left;
+      margin-right: 2%;
+      position: relative;
       background: url(../assets/image/map-bottom-left1.png) no-repeat;
       background-size: 100% 100%;
+      .button1 {
+        height: 10%;
+        width: 20%;
+        top: 15%;
+        left: 18%;
+      }
+      .button2 {
+        height: 10%;
+        width: 20%;
+        top: 15%;
+        left: 40%;
+      }
+      .button3 {
+        height: 10%;
+        width: 20%;
+        top: 15%;
+        right: 18%;
+      }
     }
     .left2 {
       height: 100%;
-      width: 25%;
+      width: 24%;
       float: left;
+      margin-right: 2%;
       background: url(../assets/image/map-bottom-left2.png) no-repeat;
       background-size: 100% 100%;
     }
     .right1 {
       height: 100%;
-      width: 25%;
+      width: 24%;
       float: left;
       background: url(../assets/image/map-bottom-right1.png) no-repeat;
       background-size: 100% 100%;
     }
     .right2 {
       height: 100%;
-      width: 25%;
+      width: 23%;
       float: left;
+      margin-left: 2%;
       background: url(../assets/image/map-bottom-right2.png) no-repeat;
       background-size: 100% 100%;
     }
