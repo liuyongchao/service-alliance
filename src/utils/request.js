@@ -94,6 +94,27 @@ service.interceptors.response.use(
         });
       }
     }
+    if (resonse.status === "400" || resonse.status === 400) {
+      if (resonse.data.code === "2002" || resonse.data.code === 2002) {
+        //密码用户名不匹配
+        console.log(resonse.data.message);
+        if (
+          resonse.data.message === "basicId不能为空" ||
+          resonse.data.message === "basicSecret不能为空"
+        ) {
+          MessageBox.confirm("请重新进行基础评价！", "温馨提示:", {
+            showCancelButton: false,
+            confirmButtonText: "确定",
+            type: "warning"
+          });
+        } else {
+          MessageBox.confirm(resonse.data.message, "温馨提示:", {
+            confirmButtonText: "确定",
+            type: "warning"
+          });
+        }
+      }
+    }
     // Message({
     //   message: error.message,
     //   type: "error",

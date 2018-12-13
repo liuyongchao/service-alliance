@@ -358,6 +358,7 @@ export default {
     return {
       minHeight: 0,
       trade: "", //evaluate/self/trades 接口获取
+      scoreColor: "",
       SelfEvaluateForm: {
         tradeId: [
           {
@@ -552,13 +553,26 @@ export default {
       console.log(SelfEvaluateForm);
       selfEvaluate(SelfEvaluateForm).then(res => {
         console.log(res);
+        if (res < 60) {
+          this.scoreColor = "#f78989";
+        } else if (res >= 60 && res < 75) {
+          this.scoreColor = "#fd4e27";
+        } else {
+          this.scoreColor = "teal";
+        }
         const h = this.$createElement;
-        this.$confirm({
+        this.$msgbox({
           title: "消息",
           message: h("p", null, [
             h("span", null, "内容可以是 "),
-            h("i", { style: "color: teal" }, "VNode")
-          ])
+            h(
+              "i",
+              { style: "color:" + this.scoreColor + ";font-size:18px;" },
+              res.toFixed(2) + "分"
+            )
+          ]),
+          showCancelButton: false,
+          confirmButtonText: "确定"
         });
       });
     },
