@@ -1,22 +1,17 @@
 <template>
-  <div class="container">
-    <div class="title">
+    <div class="map">
+        <div class="maphead"></div>
+<div class="mapcontent">
+    <div class="mapcontenttop">
 
-    </div>
-
-  <div class="map">
-    <div class="map-top">
-      <div class="map-top-left">
-        <v-chart :options = "regionBar" :auto-resize = true style="width:100%;height:100%"></v-chart>
-      </div>
-      <baidu-map
-        :center="center"
-        :zoom="zoom"
-        @ready="handler"
-        class="map-top-center"
-        :mapStyle="mapStyle"
-        :scroll-wheel-zoom="true"
-      >
+        <div class="left">
+          <div class="left-head"><h1>区域维度</h1> </div>
+          <div class="left-content">
+            <v-chart ref="regionBar" :options = "regionBar" :auto-resize = true style="width:100%;height:100%"></v-chart>
+            </div>       
+          </div>
+        <div class="middle">
+    <baidu-map style="width:98.5%;height:98.5%;margin:0 auto;padding:5px 5px"  :center="center" :zoom="zoom" @ready="handler" :mapStyle="mapStyle" :scroll-wheel-zoom="true">
       <bm-point-collection :points="points" v-for="(points,index) in field_points" :key="index" shape="BMAP_POINT_SHAPE_CIRCLE" :color="pointColor[index]" size="BMAP_POINT_SIZE_NORMAL"  @click="clickHandler(index)"></bm-point-collection>
       <bm-boundary name="北京市" :strokeWeight="3" strokeColor="#102749" :fillOpacity = 0.1></bm-boundary>    
       <bm-boundary name="北京市东城区" :strokeWeight="1" strokeColor="#020a17ff" fillColor="#102749" :fillOpacity = 0.2 ></bm-boundary>
@@ -36,25 +31,16 @@
       <bm-boundary name="北京市密云区" :strokeWeight="1" strokeColor="#020a17ff" fillColor="#102749" :fillOpacity = 0.2></bm-boundary>
       <bm-boundary name="北京市延庆区" :strokeWeight="1" strokeColor="#020a17ff" fillColor="#102749" :fillOpacity = 0.2></bm-boundary>
       </baidu-map>
-      <div class="map-top-right">
-        <v-chart :options = "fieldPie" :auto-resize = true style="width:100%;height:100%"></v-chart>
-      </div>
+        </div>
+        <div class="right"><v-chart ref="fieldPie" :options = "fieldPie" :auto-resize = true style="width:100%;height:100%"></v-chart></div>
     </div>
-    <div class="map-bottom">
-      <div class="map-bottom-left1">
-        <v-chart :options = "numberPie" :auto-resize = true style="width:100%;height:100%"></v-chart>
-      </div>
-      <div class="map-bottom-left2">
-        <v-chart :options = "numberLine" :auto-resize = true style="width:100%;height:100%"></v-chart>
-      </div>
-      <div class="map-bottom-right1">
-        <v-chart class = "typeBar" :options = "typeBar" :auto-resize = true style="width:100%;height:100%"></v-chart>
-      </div>
-      <div class="map-bottom-right2">
-        <v-chart :options = "revenuePie" :auto-resize = true style="width:100%;height:100%"></v-chart>
-      </div>
+    <div class="mapcontentbottom">
+        <div class="left1"><v-chart ref="numberPie" :options = "numberPie" :auto-resize = true style="width:100%;height:100%"></v-chart></div>
+        <div class="left2"><v-chart ref="numberLine" :options = "numberLine" :auto-resize = true style="width:100%;height:100%"></v-chart></div>
+        <div class="right1"><v-chart ref="typeBar" class = "typeBar" :options = "typeBar" :auto-resize = true style="width:100%;height:100%"></v-chart></div>
+        <div class="right2"><v-chart ref="revenuePie" :options = "revenuePie" :auto-resize = true style="width:100%;height:100%"></v-chart></div>
     </div>
-  </div>
+</div>
     </div>
 </template>
 <script>
@@ -82,23 +68,45 @@ export default {
     "v-chart": ECharts
   },
   data() {
-    let data = [];
+    let getDpr = (function getDpr() {
+      var dpr = document.querySelector("html").scrollHeight;
+      console.log(dpr);
 
-    for (let i = 0; i <= 360; i++) {
-      let t = (i / 180) * Math.PI;
-      let r = Math.sin(2 * t) * Math.cos(2 * t);
-      data.push([r, i]);
-    }
+      if (dpr >= 2490) {
+        return 30;
+      } else if (dpr < 2490 && dpr > 1024) {
+        return 14;
+      } else if (dpr <= 1024 && dpr > 876) {
+        return 12;
+      } else {
+        return 12;
+      }
+    })();
+
     return {
       //区域分布情况
+      chart: null,
       regionBar: {
+        title: {
+          text: "区域分布情况",
+          top: "3%",
+          left: "center",
+          textStyle: {
+            color: "#ffffff",
+            fontSize: getDpr
+          }
+        },
         grid: {
+          top: "25%",
           containLabel: true
         },
         tooltip: {
           trigger: "axis",
           axisPointer: {
             type: "shadow"
+          },
+          textStyle: {
+            fontSize: getDpr
           }
         },
         xAxis: {
@@ -113,6 +121,7 @@ export default {
             rotate: 45, //倾斜度 -90 至 90 默认为0
             margin: 10,
             textStyle: {
+              fontSize: getDpr,
               fontWeight: "bolder",
               color: "#7089cb"
             }
@@ -138,7 +147,7 @@ export default {
         },
         yAxis: {
           type: "value",
-          interval: 20,
+          // interval: 20,
           axisLine: {
             lineStyle: {
               color: "#7089cb"
@@ -146,7 +155,7 @@ export default {
           },
           axisLabel: {
             fontWeight: "bold",
-            fontSize: 14
+            fontSize: getDpr
           },
           splitLine: {
             show: true,
@@ -157,24 +166,7 @@ export default {
         },
         series: [
           {
-            data: [
-              120,
-              200,
-              150,
-              80,
-              70,
-              110,
-              130,
-              120,
-              200,
-              150,
-              80,
-              70,
-              110,
-              130,
-              55,
-              20
-            ],
+            data: [],
             type: "bar",
             itemStyle: {
               normal: {
@@ -207,19 +199,34 @@ export default {
       },
       //领域分布情况
       fieldPie: {
+        title: {
+          text: "领域分布情况",
+          top: "3%",
+          left: "center",
+          textStyle: {
+            color: "#ffffff",
+            fontSize: getDpr
+          }
+        },
         grid: {
+          top: "25%",
           containLabel: true
         },
         tooltip: {
           trigger: "item",
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c} ({d}%)",
+          textStyle: {
+            fontSize: getDpr
+          }
         },
         legend: {
+          //orient: "horizontal",
           orient: "vertical",
           right: "5%",
-          top: "20%",
+          top: "25%",
           textStyle: {
-            color: "#7089cb"
+            color: "#7089cb",
+            fontSize: getDpr
           },
           data: [
             "集成电路",
@@ -236,11 +243,11 @@ export default {
         },
         series: [
           {
-            name: "访问来源",
+            name: "领域分布情况",
             type: "pie",
             label: {
               normal: {
-                fontSize: 16,
+                fontSize: getDpr,
                 fontWeight: "bold",
                 formatter: "{c}\n",
                 padding: [0, -40]
@@ -269,21 +276,10 @@ export default {
                 }
               }
             },
-            radius: ["30%", "40%"],
-            center: ["40%", "50%"],
+            radius: ["25%", "35%"],
+            center: ["35%", "50%"],
             avoidLabelOverlap: false,
-            data: [
-              { value: 335, name: "集成电路" },
-              { value: 1548, name: "节能环保" },
-              { value: 1548, name: "科技服务业" },
-              { value: 135, name: "软件和信息服务" },
-              { value: 1548, name: "新材料" },
-              { value: 310, name: "新能源智能汽车" },
-              { value: 1548, name: "新一代信息技术" },
-              { value: 234, name: "医药健康" },
-              { value: 1548, name: "智能制造" },
-              { value: 1548, name: "其他" }
-            ]
+            data: []
           }
         ]
       },
@@ -292,23 +288,23 @@ export default {
         title: [
           {
             text: "数量",
-            left: "35.5%",
+            left: "27%",
             top: "center",
             textStyle: {
               color: "#ffffff",
               align: "center",
-              fontSize: 16,
+              fontSize: getDpr,
               fontFamily: "Microsoft YaHei"
             }
           },
           {
             text: "营收",
-            left: "65.5%",
+            left: "67%",
             top: "center",
             textStyle: {
               color: "#ffffff",
               align: "center",
-              fontSize: 16,
+              fontSize: getDpr,
               fontFamily: "Microsoft YaHei"
             }
           }
@@ -318,14 +314,18 @@ export default {
         },
         tooltip: {
           trigger: "item",
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c} ({d}%)",
+          textStyle: {
+            fontSize: getDpr
+          }
         },
         legend: [
           {
             orient: "horizontal",
             bottom: "15%",
             textStyle: {
-              color: "#7089cb"
+              color: "#7089cb",
+              fontSize: getDpr
             },
             data: ["中关村科学城", "怀柔科学城"]
           },
@@ -333,7 +333,8 @@ export default {
             orient: "horizontal",
             bottom: "5%",
             textStyle: {
-              color: "#7089cb"
+              color: "#7089cb",
+              fontSize: getDpr
             },
             data: ["北京经济技术", "未来科学城"]
           }
@@ -341,7 +342,7 @@ export default {
 
         series: [
           {
-            name: "营收",
+            name: "数量",
             type: "pie",
             label: {
               show: false,
@@ -351,21 +352,15 @@ export default {
             itemStyle: {
               normal: {
                 color: function(params) {
-                  var colorList = ["#fd421c", "#3c29d0", "#fd9601", "#0383de"];
+                  var colorList = ["#fd9601", "#3c29d0", "#fd421c", "#0383de"];
                   return colorList[params.dataIndex];
                 }
               }
             },
             radius: ["30%", "40%"],
-            center: ["40%", "50%"],
+            center: ["30%", "50%"],
             avoidLabelOverlap: false,
-            data: [
-              { value: 335, name: "中关村科学城" },
-              { value: 310, name: "怀柔科学城" },
-              { value: 234, name: "北京经济技术" },
-              { value: 135, name: "100亿-500亿" },
-              { value: 1548, name: "未来科学城" }
-            ]
+            data: []
           },
           {
             name: "营收",
@@ -378,7 +373,7 @@ export default {
             itemStyle: {
               normal: {
                 color: function(params) {
-                  var colorList = ["#fd421c", "#3c29d0", "#fd9601", "#0383de"];
+                  var colorList = ["#fd9601", "#3c29d0", "#fd421c", "#0383de"];
                   return colorList[params.dataIndex];
                 }
               }
@@ -386,25 +381,32 @@ export default {
             radius: ["30%", "40%"],
             center: ["70%", "50%"],
             avoidLabelOverlap: false,
-            data: [
-              { value: 335, name: "中关村科学城" },
-              { value: 310, name: "怀柔科学城" },
-              { value: 234, name: "北京经济技术" },
-              { value: 135, name: "100亿-500亿" },
-              { value: 1548, name: "未来科学城" }
-            ]
+            data: []
           }
         ]
       },
       //企业技术中心数量走势
       numberLine: {
+        // title: {
+        //   text: "企业技术中心数量走势",
+        //   top: "3%",
+        //   left: "center",
+        //   textStyle: {
+        //     color: "#ffffff",
+        //     fontSize: getDpr
+        //   }
+        // },
         grid: {
+          top: "25%",
           containLabel: true
         },
         tooltip: {
           trigger: "axis",
           axisPointer: {
             type: "shadow"
+          },
+          textStyle: {
+            fontSize: getDpr
           }
         },
         toolbox: {
@@ -438,23 +440,7 @@ export default {
                 color: "#7089cb"
               }
             },
-            data: [
-              "2004",
-              "2005",
-              "2006",
-              "2007",
-              "2008",
-              "2009",
-              "2010",
-              "2011",
-              "2012",
-              "2013",
-              "2014",
-              "2015",
-              "2016",
-              "2017",
-              "2018"
-            ],
+            data: [],
             axisPointer: {
               type: "shadow"
             }
@@ -473,13 +459,13 @@ export default {
               }
             },
             nameTextStyle: {
-              fontSize: 14,
+              fontSize: getDpr,
               fontWeight: "bold"
             },
             axisLabel: {
               formatter: "{value}",
               fontWeight: "bold",
-              fontSize: 14
+              fontSize: getDpr
             },
             splitLine: {
               show: true,
@@ -495,7 +481,7 @@ export default {
             max: 100,
             interval: 20,
             nameTextStyle: {
-              fontSize: 14,
+              fontSize: getDpr,
               fontWeight: "bold"
             },
             axisLine: {
@@ -506,7 +492,7 @@ export default {
             axisLabel: {
               formatter: "{value}",
               fontWeight: "bold",
-              fontSize: 14
+              fontSize: getDpr
             },
             splitLine: {
               show: false,
@@ -518,70 +504,44 @@ export default {
         ],
         series: [
           {
-            name: "新增数量",
+            name: "技术中心总量",
             type: "line",
             symbol: "circle",
             symbolSize: 6,
-            data: [
-              61,
-              79,
-              106,
-              132,
-              179,
-              223,
-              303,
-              340,
-              381,
-              446,
-              499,
-              541,
-              609,
-              672
-            ]
+            data: []
           },
           {
-            name: "增长率",
+            name: "技术中心新增数量",
             type: "line",
             symbol: "circle",
             symbolSize: 6,
             yAxisIndex: 1,
-            data: [
-              0,
-              17.72,
-              28.3,
-              28.03,
-              34.08,
-              24.22,
-              28.05,
-              12.06,
-              12.34,
-              17.49,
-              12.63,
-              10.17,
-              12.32,
-              11.01
-            ]
+            data: []
           }
         ]
       },
-      //企业所有制分布/上市情况
+      //北京市企业技术中心企业类型分布
       typeBar: {
         title: {
-          text: "北京市企业技术中心企业类型分布",
+          text: "企业技术中心数量走势",
+          top: "3%",
           left: "center",
-          top: "8%",
           textStyle: {
             color: "#ffffff",
-            fontSize: 14
+            fontSize: getDpr
           }
         },
         grid: {
+          top: "25%",
           containLabel: true
         },
         tooltip: {
           trigger: "axis",
           axisPointer: {
             type: "shadow"
+          },
+          textStyle: {
+            fontSize: getDpr
           }
         },
         xAxis: {
@@ -601,7 +561,8 @@ export default {
           axisLabel: {
             textStyle: {
               fontWeight: "bolder",
-              color: "#7089cb"
+              color: "#7089cb",
+              fontSize: getDpr
             }
           }
         },
@@ -614,7 +575,7 @@ export default {
           },
           axisLabel: {
             fontWeight: "bold",
-            fontSize: 14
+            fontSize: getDpr
           },
           splitLine: {
             show: false,
@@ -658,27 +619,42 @@ export default {
       },
       //北京市企业技术中心发展情况
       revenuePie: {
+        title: {
+          text: "技术中心企业营收分布（单位：家）",
+          top: "3%",
+          left: "center",
+          textStyle: {
+            color: "#ffffff",
+            fontSize: getDpr
+          }
+        },
         grid: {
+          top: "25%",
           containLabel: true
         },
         tooltip: {
           trigger: "item",
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c} ({d}%)",
+          textStyle: {
+            fontSize: getDpr
+          }
         },
         legend: [
           {
             orient: "horizontal",
             bottom: "15%",
             textStyle: {
-              color: "#7089cb"
+              color: "#7089cb",
+              fontSize: getDpr
             },
-            data: ["一亿以下", "10亿-100亿", "5亿-10亿"]
+            data: ["5亿以下", "5亿-10亿", "10亿-100亿"]
           },
           {
             orient: "horizontal",
             bottom: "5%",
             textStyle: {
-              color: "#7089cb"
+              color: "#7089cb",
+              fontSize: getDpr
             },
             data: ["100亿-500亿", "500亿以上"]
           }
@@ -690,14 +666,14 @@ export default {
             type: "pie",
             label: {
               normal: {
-                fontSize: 16,
+                fontSize: getDpr,
                 fontWeight: "bold",
                 formatter: "{c}\n",
-                padding: [0, -40]
+                padding: [0, -25]
               }
             },
             labelLine: {
-              length2: 50
+              length2: 30
             },
             itemStyle: {
               normal: {
@@ -720,15 +696,9 @@ export default {
               }
             },
             radius: ["30%", "40%"],
-            center: ["40%", "50%"],
+            center: ["50%", "50%"],
             avoidLabelOverlap: false,
-            data: [
-              { value: 335, name: "一亿以下" },
-              { value: 310, name: "10亿-100亿" },
-              { value: 234, name: "5亿-10亿" },
-              { value: 135, name: "100亿-500亿" },
-              { value: 1548, name: "500亿以上" }
-            ]
+            data: []
           }
         ]
       },
@@ -895,11 +865,8 @@ export default {
       }
     };
   },
-  created() {
-    // 插入 10 个随机点
-    this.addPoints();
-  },
   mounted() {
+    let me = this;
     mapIndustries().then(res => {
       console.log(res);
       const resData = res;
@@ -934,26 +901,105 @@ export default {
       }
     }),
       mapIndustryCity().then(res => {
-        console.log(res);
+        console.log("三城一区", res);
+        const industryAmount = [];
+        const industryIncome = [];
+        const patentAmount = [];
+        for (let i = 0; i < res.length; i++) {
+          industryAmount.push({
+            value: res[i].industryAmount,
+            name: res[i].name
+          });
+          industryIncome.push({
+            value: res[i].industryIncome,
+            name: res[i].name
+          });
+          patentAmount.push({
+            value: res[i].patentAmount,
+            name: res[i].name
+          });
+        }
+        this.numberPie.series[0].data = industryAmount;
+        this.numberPie.series[1].data = industryIncome;
       }),
       mapIndustryDomain().then(res => {
-        console.log(res);
-      }),
-      mapIndustryIncome().then(res => {
-        console.log(res);
+        console.log("领域维度", res);
+        const industryAmount = [];
+        const industryIncome = [];
+        const patentAmount = [];
+        for (let i = 0; i < res.length; i++) {
+          industryAmount.push({
+            value: res[i].industryAmount,
+            name: res[i].name
+          });
+          industryIncome.push({
+            value: res[i].industryIncome,
+            name: res[i].name
+          });
+          patentAmount.push({
+            value: res[i].patentAmount,
+            name: res[i].name
+          });
+        }
+        this.fieldPie.series[0].data = patentAmount;
       }),
       mapIndustryRegion().then(res => {
-        console.log(res);
+        console.log("区域维度", res);
+        const industryAmount = [];
+        const industryIncome = [];
+        const patentAmount = [];
+        for (let i = 0; i < me.regionBar.xAxis.data.length; i++) {
+          for (let k = 0; k < res.length; k++) {
+            if (res[k].name === me.regionBar.xAxis.data[i]) {
+              industryAmount.push(res[k].industryAmount);
+              industryIncome.push(res[k].industryIncome);
+              patentAmount.push(res[k].patentAmount);
+            }
+          }
+        }
+        this.regionBar.series[0].data = industryAmount;
       }),
-      mapListAmount().then(res => {
-        console.log(res);
-      }),
-      mapOwnershipAmount().then(res => {
-        console.log(res);
+      mapListAmount().then(res0 => {
+        console.log("上市情况", res0);
+        const industryAmount = [];
+        industryAmount.push(res0[1].industryAmount);
+        mapOwnershipAmount().then(res => {
+          console.log("所有制", res);
+          for (let i = 0; i < me.typeBar.yAxis.data.length; i++) {
+            for (let k = 0; k < res.length; k++) {
+              if (res[k].name === me.typeBar.yAxis.data[i]) {
+                industryAmount.push(res[k].industryAmount);
+              }
+            }
+          }
+          this.typeBar.series[0].data = industryAmount;
+        });
       }),
       mapYearAmount().then(res => {
-        console.log(res);
+        console.log("年度企业数量", res);
+        const techCenterYear = [];
+        const techCenterAmount = [];
+        const techCenterNewAmount = [];
+        for (let i = 0; i < res.length; i++) {
+          techCenterYear.push(res[i].year);
+          techCenterAmount.push(res[i].techCenterAmount);
+          techCenterNewAmount.push(res[i].techCenterNewAmount);
+        }
+        this.numberLine.xAxis[0].data = techCenterYear;
+        this.numberLine.series[0].data = techCenterAmount;
+        this.numberLine.series[1].data = techCenterNewAmount;
       });
+    mapIndustryIncome().then(res => {
+      console.log("营收分布", res);
+      const industryAmount = [];
+      for (let i = 0; i < res.length; i++) {
+        industryAmount.push({
+          value: res[i].industryAmount,
+          name: res[i].name
+        });
+      }
+      this.revenuePie.series[0].data = industryAmount;
+    });
   },
   methods: {
     handler({ BMap, map }) {
@@ -979,72 +1025,86 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.container {
-  background: url(../assets/image/background.jpg) no-repeat;
+<style lang="scss">
+.map {
   width: 100%;
   height: 100%;
-  position: fixed;
-  background-size: cover;
-  .title {
-    width: 407px;
-    height: 20%;
-    margin: 0 auto;
-    background: url(../assets/image/title.png) no-repeat 0% 50%;
-  }
-  .map {
-    height: 80%;
-    .map-top {
-      height: 60%;
-      .map-top-left {
-        height: 100%;
-        width: 30%;
-        float: left;
-        background: url("../assets/image/map-top-left.png") center no-repeat;
+  background: url(../assets/image/background.jpg) no-repeat;
+  background-size: 100% 100%;
+}
+.maphead {
+  height: 15%;
+}
+.mapcontent {
+  width: 95%;
+  margin: 0 auto;
+  height: 85%;
+  .mapcontenttop {
+    height: 55%;
+    .left {
+      height: 100%;
+      width: 25%;
+      float: left;
+
+      .left-head {
+        height: 15%;
+        color: #0debef;
+        text-align: left;
+        background: url(../assets/image/background-head.png) 0% 0% no-repeat;
+        h1 {
+          padding: 15px 0 0 30px;
+        }
       }
-      .map-top-center {
-        height: 100%;
-        width: 40%;
-        float: left;
-        background: url("../assets/image/map-top-middle.png") center no-repeat;
-      }
-      .map-top-right {
-        height: 100%;
-        width: 30%;
-        float: left;
-        background: url("../assets/image/map-top-right.png") center no-repeat;
-      }
-    }
-    .map-bottom {
-      height: 40%;
-      .map-bottom-left1 {
-        height: 100%;
-        width: 25%;
-        float: left;
-        background: url("../assets/image/map-bottom-left1.png") center no-repeat;
+      .left-content {
+        height: 85%;
+        background: url(../assets/image/map-top-left.png) no-repeat;
         background-size: 100% 100%;
       }
-      .map-bottom-left2 {
-        height: 100%;
-        width: 25%;
-        float: left;
-        background: url("../assets/image/map-bottom-left2.png") center no-repeat;
-      }
-      .map-bottom-right1 {
-        height: 100%;
-        width: 25%;
-        float: left;
-        background: url(../assets/image/map-bottom-right1.png) center center
-          no-repeat;
-      }
-      .map-bottom-right2 {
-        height: 100%;
-        width: 25%;
-        float: left;
-        background: url(../assets/image/map-bottom-right1.png) center center
-          no-repeat;
-      }
+    }
+    .middle {
+      height: 100%;
+      width: 50%;
+      float: left;
+      background: url(../assets/image/map-top-middle.png) no-repeat;
+      background-size: 100% 100%;
+    }
+    .right {
+      height: 100%;
+      width: 25%;
+      float: left;
+      background: url(../assets/image/map-top-right.png) no-repeat;
+      background-size: 100% 100%;
+    }
+  }
+  .mapcontentbottom {
+    height: 40%;
+    .left1 {
+      height: 100%;
+      width: 25%;
+      float: left;
+      background: url(../assets/image/map-bottom-left1.png) no-repeat;
+      background-size: 100% 100%;
+    }
+    .left2 {
+      height: 100%;
+      width: 25%;
+      float: left;
+      background: url(../assets/image/map-bottom-left2.png) no-repeat;
+      background-size: 100% 100%;
+    }
+    .right1 {
+      height: 100%;
+      width: 25%;
+      float: left;
+      background: url(../assets/image/map-bottom-right1.png) no-repeat;
+      background-size: 100% 100%;
+    }
+    .right2 {
+      height: 100%;
+      width: 25%;
+      float: left;
+      background: url(../assets/image/map-bottom-right2.png) no-repeat;
+      background-size: 100% 100%;
     }
   }
 }

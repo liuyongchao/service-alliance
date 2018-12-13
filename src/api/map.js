@@ -56,7 +56,7 @@ export function mapOwnershipAmount() {
   });
 }
 
-//获取各所有制企业数量
+//获取各年年度技术中⼼心数量量
 export function mapYearAmount() {
   return request({
     url: "/map/year/amount",
