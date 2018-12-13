@@ -90,13 +90,16 @@ export default {
           }
         },
         grid: {
-          top: "20%",
+          top: "25%",
           containLabel: true
         },
         tooltip: {
           trigger: "axis",
           axisPointer: {
             type: "shadow"
+          },
+          textStyle: {
+            fontSize: getDpr
           }
         },
         xAxis: {
@@ -216,19 +219,23 @@ export default {
           }
         },
         grid: {
-          top: "20%",
+          top: "25%",
           containLabel: true
         },
         tooltip: {
           trigger: "item",
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c} ({d}%)",
+          textStyle: {
+            fontSize: getDpr
+          }
         },
         legend: {
           orient: "vertical",
           right: "5%",
           top: "20%",
           textStyle: {
-            color: "#7089cb"
+            color: "#7089cb",
+            fontSize: getDpr
           },
           data: [
             "集成电路",
@@ -301,7 +308,7 @@ export default {
         title: [
           {
             text: "数量",
-            left: "35.5%",
+            left: "27%",
             top: "center",
             textStyle: {
               color: "#ffffff",
@@ -312,7 +319,7 @@ export default {
           },
           {
             text: "营收",
-            left: "65.5%",
+            left: "67%",
             top: "center",
             textStyle: {
               color: "#ffffff",
@@ -327,14 +334,18 @@ export default {
         },
         tooltip: {
           trigger: "item",
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c} ({d}%)",
+          textStyle: {
+            fontSize: getDpr
+          }
         },
         legend: [
           {
             orient: "horizontal",
             bottom: "15%",
             textStyle: {
-              color: "#7089cb"
+              color: "#7089cb",
+              fontSize: getDpr
             },
             data: ["中关村科学城", "怀柔科学城"]
           },
@@ -342,7 +353,8 @@ export default {
             orient: "horizontal",
             bottom: "5%",
             textStyle: {
-              color: "#7089cb"
+              color: "#7089cb",
+              fontSize: getDpr
             },
             data: ["北京经济技术", "未来科学城"]
           }
@@ -366,7 +378,7 @@ export default {
               }
             },
             radius: ["30%", "40%"],
-            center: ["40%", "50%"],
+            center: ["30%", "50%"],
             avoidLabelOverlap: false,
             data: [
               { value: 335, name: "中关村科学城" },
@@ -417,13 +429,16 @@ export default {
           }
         },
         grid: {
-          top: "20%",
+          top: "25%",
           containLabel: true
         },
         tooltip: {
           trigger: "axis",
           axisPointer: {
             type: "shadow"
+          },
+          textStyle: {
+            fontSize: getDpr
           }
         },
         toolbox: {
@@ -595,13 +610,16 @@ export default {
           }
         },
         grid: {
-          top: "20%",
+          top: "25%",
           containLabel: true
         },
         tooltip: {
           trigger: "axis",
           axisPointer: {
             type: "shadow"
+          },
+          textStyle: {
+            fontSize: getDpr
           }
         },
         xAxis: {
@@ -621,7 +639,8 @@ export default {
           axisLabel: {
             textStyle: {
               fontWeight: "bolder",
-              color: "#7089cb"
+              color: "#7089cb",
+              fontSize: getDpr
             }
           }
         },
@@ -688,19 +707,23 @@ export default {
           }
         },
         grid: {
-          top: "20%",
+          top: "25%",
           containLabel: true
         },
         tooltip: {
           trigger: "item",
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c} ({d}%)",
+          textStyle: {
+            fontSize: getDpr
+          }
         },
         legend: [
           {
             orient: "horizontal",
             bottom: "15%",
             textStyle: {
-              color: "#7089cb"
+              color: "#7089cb",
+              fontSize: getDpr
             },
             data: ["一亿以下", "10亿-100亿", "5亿-10亿"]
           },
@@ -708,7 +731,8 @@ export default {
             orient: "horizontal",
             bottom: "5%",
             textStyle: {
-              color: "#7089cb"
+              color: "#7089cb",
+              fontSize: getDpr
             },
             data: ["100亿-500亿", "500亿以上"]
           }
@@ -750,7 +774,7 @@ export default {
               }
             },
             radius: ["30%", "40%"],
-            center: ["40%", "50%"],
+            center: ["50%", "50%"],
             avoidLabelOverlap: false,
             data: [
               { value: 335, name: "一亿以下" },
