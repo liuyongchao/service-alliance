@@ -15,7 +15,7 @@
               label="用户名"
               prop="name"
             >
-              <el-input v-model="registerForm.username" placeholder="请输入用户名"></el-input>
+              <el-input v-model="registerForm.username" @blur="registerOccupiedUsernameCheck" placeholder="请输入用户名"></el-input>
             </el-form-item>
             <el-form-item
               label-width="100px"
@@ -67,7 +67,7 @@
               label="企业名称"
               prop="name"
             >
-              <el-input v-model="registerForm.companyName" placeholder="请输入企业名称"></el-input>
+              <el-input v-model="registerForm.companyName" @blur="registerOccupiedCompanynameCheck" placeholder="请输入企业名称"></el-input>
             </el-form-item>
             <el-form-item
               label-width="100px"
@@ -125,7 +125,11 @@
 //import HelloWorld from "@/components/HelloWorld.vue";
 import Head from "@/components/Head.vue";
 import Footer from "@/components/Footer.vue";
-import { register } from "@/api/login";
+import {
+  register,
+  registerOccupiedUsername,
+  registerOccupiedCompanyname
+} from "@/api/login";
 export default {
   data() {
     return {
@@ -145,6 +149,28 @@ export default {
     };
   },
   methods: {
+    registerOccupiedUsernameCheck() {
+      registerOccupiedUsername(event.currentTarget.value).then(res => {
+        if (res) {
+          this.$alert("用户名已经被注册！", "温馨提醒", {
+            confirmButtonText: "确定"
+          }).then(() => {
+            this.registerForm.username = "";
+          });
+        }
+      });
+    },
+    registerOccupiedCompanynameCheck() {
+      registerOccupiedCompanyname(event.currentTarget.value).then(res => {
+        if (res) {
+          this.$alert("企业已经被注册！", "温馨提醒", {
+            confirmButtonText: "确定"
+          }).then(() => {
+            this.registerForm.companyName = "";
+          });
+        }
+      });
+    },
     registerSubmit() {
       register(this.registerForm).then(res => {
         console.log(res);
