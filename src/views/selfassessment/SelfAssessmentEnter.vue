@@ -32,7 +32,7 @@
 </div>
 <div class="basicevaluate">
 <h1>4.企业满足<span style="color:red">(多选)</span></h1> 
-<el-checkbox-group v-model="BasicEvaluateForm.companyMeet">
+<el-checkbox-group v-model="BasicEvaluateForm.companyMeet" @change="handleCheckcompanyMeetChange">
 <el-row>
     <el-col v-for="(item,index) in basicCompanyMeet" :key="index" :span="24"><el-checkbox  :label="item.id">{{item.context}}</el-checkbox></el-col>
     <el-col :span="24"><el-checkbox  label="">均不满足</el-checkbox></el-col>
@@ -77,7 +77,7 @@
 </div>       
 <div class="basicevaluate">
 <h1>9.受理截止日期前三年内</h1> 
-<el-checkbox-group v-model="BasicEvaluateForm.illegal">
+<el-checkbox-group v-model="BasicEvaluateForm.illegal" @change="handleCheckillegalChange">
 <el-row>
     <el-col v-for="(item,index) in basicIllegal" :key="index" :span="24"><el-checkbox  :label="item.id">{{item.context}}</el-checkbox></el-col>   
     <el-col :span="24"><el-checkbox  label="">无以上情况</el-checkbox></el-col>
@@ -120,6 +120,18 @@ export default {
     };
   },
   methods: {
+    //法律展现控制
+    handleCheckillegalChange() {
+      if (this.BasicEvaluateForm.illegal.includes("")) {
+        this.BasicEvaluateForm.illegal = [""];
+      }
+    },
+    //企业满足
+    handleCheckcompanyMeetChange() {
+      if (this.BasicEvaluateForm.companyMeet.includes("")) {
+        this.BasicEvaluateForm.companyMeet = [""];
+      }
+    },
     basicEvaluateSubmit() {
       //均不满足、无以上情况处理
       if (this.BasicEvaluateForm.companyMeet.includes("")) {
@@ -130,19 +142,34 @@ export default {
         this.BasicEvaluateForm.illegal = [];
       }
       //基础评价提交
-      this.$store.dispatch("BasicEvaluate", this.BasicEvaluateForm).then(() => {
-        this.$confirm(
-          "恭喜您，基础评价达标，下一步进行企业自评打分",
-          "温馨提示",
-          {
-            confirmButtonText: "下一步",
-            cancelButtonText: "取消",
-            type: "warning"
+      this.$store
+        .dispatch("BasicEvaluate", this.BasicEvaluateForm)
+        .then(res => {
+          debugger;
+          if (res.basicId != null && res.basicSecret != null) {
+            this.$confirm(
+              "恭喜您，基础评价达标，下一步进行企业自评打分!",
+              "温馨提示",
+              {
+                confirmButtonText: "下一步",
+                cancelButtonText: "取消",
+                type: "success"
+              }
+            ).then(() => {
+              this.$router.push({ path: "/SelfEvaluate" });
+            });
+          } else {
+            this.$confirm(
+              "抱歉，基础评价未达标，无法进行下一步企业自评打分!",
+              "温馨提示",
+              {
+                showCancelButton: false,
+                confirmButtonText: "确定",
+                type: "warning"
+              }
+            );
           }
-        ).then(() => {
-          this.$router.push({ path: "/SelfEvaluate" });
         });
-      });
     }
   },
   mounted() {

@@ -90,13 +90,21 @@
             >
               <el-input v-model="registerForm.head" placeholder="请输入企业负责人"></el-input>
             </el-form-item>
-            <el-form-item
+
+
+
+
+
+ <el-form-item
               label-width="100px"
               label="是否上市"
               prop="name"
             >
-              <el-input v-model="registerForm.isListed" placeholder="是否上市"></el-input>
-            </el-form-item>
+    <el-select v-model="registerForm.isListed" style="width:100%" placeholder="是否上市">
+      <el-option label="是" value="true"></el-option>
+      <el-option label="否" value="false"></el-option>
+    </el-select>
+  </el-form-item>
             <el-form-item
               label-width="100px"
               label="上市代码"
@@ -173,7 +181,11 @@ export default {
     },
     registerSubmit() {
       register(this.registerForm).then(res => {
-        console.log(res);
+        this.$alert(res, "温馨提醒", {
+          confirmButtonText: "确定"
+        }).then(() => {
+          this.$router.push("/login");
+        });
       });
     }
   },

@@ -20,7 +20,7 @@ const evaluate = {
             const data = response;
             commit("SET_BASICID", data.basicId);
             commit("SET_BASICSECRET", data.basicSecret);
-            resolve();
+            resolve(response);
           })
           .catch(error => {
             reject(error);

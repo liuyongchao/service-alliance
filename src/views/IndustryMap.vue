@@ -851,6 +851,14 @@ export default {
       }
     };
   },
+  create() {
+    setInterval(() => {
+      //this.fieldIndustryAmountClick;
+      //this.fieldIndustryIncomeClick;
+      this.fieldPatentAmountClick;
+      console.log(123);
+    }, 3000);
+  },
   mounted() {
     let me = this;
     mapIndustries().then(res => {

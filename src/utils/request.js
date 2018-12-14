@@ -10,7 +10,7 @@ const service = axios.create({
   //baseURL: "https://easy-mock.com/mock/5b6bea2cdfe6643d4e6bb9b8/vue-rjs",
   //baseURL: "http://192.168.65.54:8081/api/backend",
   //baseURL: "http://192.168.65.54:8080/api/reception",
-  baseURL: "http://118.26.172.168/api/reception",
+  baseURL: "http://api.reception.cxfwlm.org.cn",
   timeout: 15000 // 请求超时时间
 });
 

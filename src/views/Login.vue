@@ -61,8 +61,8 @@ export default {
     return {
       name: "login",
       loginForm: {
-        username: "admin",
-        password: "adminadmin"
+        username: "",
+        password: ""
       },
       loginRules: {
         username: [
@@ -111,9 +111,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .container {
-  width: 100%; 
+  width: 100%;
   position: relative;
-  min-height: 100%; 
+  min-height: 100%;
   box-sizing: border-box;
   .content {
     width: 1200px;
@@ -121,27 +121,27 @@ export default {
     margin: 50px auto;
     padding-top: 0px;
     .login {
-      height: 300px; 
+      height: 300px;
       width: 800px;
       margin-left: 200px;
 
       padding-top: 150px;
 
-      .title { 
+      .title {
         line-height: 50px;
         font-size: 24px;
         margin-top: -100px;
         margin-bottom: 0px;
       }
       .logininput {
-        width: 400px; 
+        width: 400px;
         padding-left: 0px;
         padding-right: 80px;
         margin: 0 auto;
       }
       .loginbutton {
         width: 200px;
-        padding-left: 140px; 
+        padding-left: 140px;
       }
       .loginbottom {
         font-size: 14px;

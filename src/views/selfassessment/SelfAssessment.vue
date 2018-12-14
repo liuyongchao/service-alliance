@@ -198,7 +198,7 @@
 import Head from "@/components/Head.vue";
 import Footer from "@/components/Footer.vue";
 export default {
- data() {
+  data() {
     return {
       minHeight: 0,
       processData: [
@@ -229,8 +229,9 @@ export default {
           column0: "公示公告",
           column1: "公告",
           column2: "长期",
-          column3: "对公示期间未收到举报的，北京市经济和信息化局在门户网站向社会公告。",
-          column4: "批准" 
+          column3:
+            "对公示期间未收到举报的，北京市经济和信息化局在门户网站向社会公告。",
+          column4: "批准"
         },
         {
           column0: "颁证与送达",
@@ -268,16 +269,19 @@ export default {
         },
         {
           column0: "四、",
-          column1: "经具有资质的会计师事务所审计的企业上一会计年度的财务报表（含资产负债表、利润及利润分配表、现金流量表）"
+          column1:
+            "经具有资质的会计师事务所审计的企业上一会计年度的财务报表（含资产负债表、利润及利润分配表、现金流量表）"
         },
         {
           column0: "五、",
-          column1: "知识产权证书、标准文本、研发平台及检测机构等认证证书、科技奖励证书等其他创新绩效相关证明材料（复印件）"
+          column1:
+            "知识产权证书、标准文本、研发平台及检测机构等认证证书、科技奖励证书等其他创新绩效相关证明材料（复印件）"
         },
         {
           column0: "申请材料总要求",
-          column1: "1、上述申请材料电子版需扫描原件在北京市经济和信息网线上平台上传；2、申请人以告知承诺方式申请资质，需按流程在线上平台提交申报材料，并完成《要求北京市企业技术中心资质申请告知承诺书》（以下称告知承诺书）电子签章。3、以上材料必须于申请人在线上平台提交告知承诺书时一并提交。"
-          }
+          column1:
+            "1、上述申请材料电子版需扫描原件在北京市经济和信息网线上平台上传；2、申请人以告知承诺方式申请资质，需按流程在线上平台提交申报材料，并完成《要求北京市企业技术中心资质申请告知承诺书》（以下称告知承诺书）电子签章。3、以上材料必须于申请人在线上平台提交告知承诺书时一并提交。"
+        }
       ],
       sampleData: [
         {
@@ -296,15 +300,18 @@ export default {
       setbasis1Data: [
         {
           column0: "制定机关",
-          column1: "中华人民共和国国家发展和改革委员会、中华人民共和国科学技术部、中华人民共和国财政部、中华人民共和国海关总署、国家税务总局"
+          column1:
+            "中华人民共和国国家发展和改革委员会、中华人民共和国科学技术部、中华人民共和国财政部、中华人民共和国海关总署、国家税务总局"
         },
         {
           column0: "依据名称",
-          column1: "国家发展和改革委员会科学技术部财政部海关总署国家税务总局关于发布《国家企业技术中心认定管理办法》的决定"
+          column1:
+            "国家发展和改革委员会科学技术部财政部海关总署国家税务总局关于发布《国家企业技术中心认定管理办法》的决定"
         },
         {
           column0: "发布号令",
-          column1: "中华人民共和国国家发展和改革委员会中华人民共和国科学技术部中华人民共和国财政部中华人民共和国海关总署国家税务总局令第34号			"
+          column1:
+            "中华人民共和国国家发展和改革委员会中华人民共和国科学技术部中华人民共和国财政部中华人民共和国海关总署国家税务总局令第34号			"
         },
         {
           column0: "法条内容",
@@ -383,7 +390,7 @@ export default {
 .main {
   width: 1200px;
   height: 2700px;
-  padding: 0 0 0 0 ;
+  padding: 0 0 0 0;
   margin: 0 auto;
 }
 .el-step {
@@ -395,8 +402,8 @@ export default {
 .content {
   width: 100%;
   height: 600px;
-  padding: 0 0 0 0 ;
-  margin: 0 0 0 0 ;
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
   float: left;
 }
 .box {
@@ -412,33 +419,25 @@ export default {
     background-color: #0088d3;
   }
 
-  
-.juzhong
-{ 
-  margin-left: -50px; 
-}
-
+  .juzhong {
+    margin-left: -50px;
+  }
 }
 .enterbtn {
-  margin-top: 50px;
+  margin-top: 70px;
   width: 600px;
   float: left;
 }
 
-
-
-.rukougreen
-{
-//margin-top: 30px;
-//padding-top: 50px;
-//border: 15px;
-line-height: 20px;
+.rukougreen {
+  //margin-top: 30px;
+  //padding-top: 50px;
+  //border: 15px;
+  line-height: 20px;
 }
 
-.rukougreen2
-{
-line-height: 20px;
-margin-top: 7px;
+.rukougreen2 {
+  line-height: 20px;
+  margin-top: 7px;
 }
-
 </style>

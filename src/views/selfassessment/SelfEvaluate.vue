@@ -528,18 +528,19 @@ export default {
         tradeId: this.SelfEvaluateForm.tradeId[0].column2,
         //创新经费
         income: this.SelfEvaluateForm.innovateFee[0].column2,
-        fundsSpendIncomeProportion: this.SelfEvaluateForm.innovateFee[1]
-          .column2,
+        fundsSpendIncomeProportion:
+          this.SelfEvaluateForm.innovateFee[1].column2 / 100,
         fundsSpend: this.SelfEvaluateForm.innovateFee[2].column2,
         //创新人才
-        developerProportion: this.SelfEvaluateForm.innovatePresion[0].column2,
+        developerProportion:
+          this.SelfEvaluateForm.innovatePresion[0].column2 / 100,
         expertNum: this.SelfEvaluateForm.innovatePresion[1].column2,
         externalExpertNum: this.SelfEvaluateForm.innovatePresion[2].column2,
         //技术积累
         intellectualPropertyNum: this.SelfEvaluateForm.technology[0].column2,
         patentNum: this.SelfEvaluateForm.technology[1].column2,
         projectNum: this.SelfEvaluateForm.technology[2].column2,
-        projectProportion: this.SelfEvaluateForm.technology[3].column2,
+        projectProportion: this.SelfEvaluateForm.technology[3].column2 / 100,
 
         //创新平台
         deviceValue: this.SelfEvaluateForm.innovativePlatform[0].column2,
@@ -553,17 +554,18 @@ export default {
           .column2,
         standardNum: this.SelfEvaluateForm.technologyOutput[2].column2,
         //创新效益
-        contributionRate: this.SelfEvaluateForm.innovationBenefit[0].column2,
-        incomeProportion: this.SelfEvaluateForm.innovationBenefit[1].column2,
-        profitProportion: this.SelfEvaluateForm.innovationBenefit[2].column2,
+        contributionRate:
+          this.SelfEvaluateForm.innovationBenefit[0].column2 / 100,
+        incomeProportion:
+          this.SelfEvaluateForm.innovationBenefit[1].column2 / 100,
+        profitProportion:
+          this.SelfEvaluateForm.innovationBenefit[2].column2 / 100,
         //国家奖
         bigPrizeNum: this.SelfEvaluateForm.nationalPrize[0].column2,
         //省级奖
         smallPrizeNum: this.SelfEvaluateForm.provincialPrize[0].column2
       };
-      console.log(SelfEvaluateForm);
       selfEvaluate(SelfEvaluateForm).then(res => {
-        console.log(res);
         if (res < 60) {
           this.scoreColor = "#fd4e27";
         } else {
