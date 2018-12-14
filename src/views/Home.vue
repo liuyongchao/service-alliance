@@ -64,7 +64,8 @@
           </div>
           <div class="center-right">
             <div class="box"><p>企业自评</p></div>
-            <img src="../assets/image/self-evaluation.png" alt="">
+            <router-link tag="a" to="/selfassessmententer"><img src="../assets/image/self-evaluation.png" alt=""></router-link>
+            
           </div>
         </div>
         <div class="bottom">
@@ -108,7 +109,7 @@
           </div>
           <div class="bottom-right">
               <div class="box"><p>产业地图</p></div>
-              <img src="../assets/image/map.png" alt="">
+              <router-link tag="a" to="/industrymap"><img src="../assets/image/map.png" alt=""></router-link>            
           </div>
         </div>
       </div>
@@ -173,19 +174,28 @@ export default {
         padding: 0 10px 5px;
       }
 
-      .top-right-top{
-//height: 30px;
-background: url(../assets/image/introduction.png);background-repeat:no-repeat;background-size:cover;margin: 0,auto;
+      .top-right-top {
+        //height: 30px;
+        background: url(../assets/image/introduction.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin: 0, auto;
         height: 360px;
         width: 380px;
       }
-      .top-right-top-float
-      { 
-         position:absolute;bottom:110px;left:0px; 
-         //color: #59b431;
-         p {color: #ece8e8;padding: 0px 10px 0px 10px;}
-         a {color: #ece8e8;padding: 0px 20px 0px 0px;}
-
+      .top-right-top-float {
+        position: absolute;
+        bottom: 110px;
+        left: 0px;
+        //color: #59b431;
+        p {
+          color: #ece8e8;
+          padding: 0px 10px 0px 10px;
+        }
+        a {
+          color: #ece8e8;
+          padding: 0px 20px 0px 0px;
+        }
       }
       .top-right-left {
         width: 190px;
@@ -300,7 +310,7 @@ background: url(../assets/image/introduction.png);background-repeat:no-repeat;ba
     height: 396px;
     width: 1400px;
     padding: 20px 0 0;
-    
+
     padding: 20px 0px 0 0px;
     .box {
       border-bottom: 1px solid #0088d3;
@@ -351,7 +361,7 @@ background: url(../assets/image/introduction.png);background-repeat:no-repeat;ba
       width: 400px;
       display: inline-block;
       margin: 0 20px 0;
-      padding: 0px 0px 0px 0px ;
+      padding: 0px 0px 0px 0px;
       ul {
         height: 333px;
         li {
@@ -368,15 +378,13 @@ background: url(../assets/image/introduction.png);background-repeat:no-repeat;ba
           }
         }
       }
-
-      
     }
     .bottom-right {
       float: left;
       width: 360px;
       display: inline-block;
-      
-        //padding: 0px 28px 0px;
+
+      //padding: 0px 28px 0px;
       img {
         padding: 30px 0px 0px;
       }
