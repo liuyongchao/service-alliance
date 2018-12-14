@@ -50,9 +50,9 @@
     </div>
     <div class="mapcontentbottom">
         <div class="left1">
-          <div class="button button1"  @click="regionIndustryAmountClick"><h1 :style="{color:colorBtn[2][0]}">数量</h1></div>
-          <div class="button button2" @click="regionIndustryIncomeClick"><h1 :style="{color:colorBtn[2][1]}">营收</h1></div>
-          <div class="button button3" @click="regionPatentAmountClick"><h1 :style="{color:colorBtn[2][2]}">专利</h1></div>
+          <div class="button button1"  @click="numberIndustryAmountClick"><h1 :style="{color:colorBtn[2][0]}">数量</h1></div>
+          <div class="button button2" @click="numberIndustryIncomeClick"><h1 :style="{color:colorBtn[2][1]}">营收</h1></div>
+          <div class="button button3" @click="numberPatentAmountClick"><h1 :style="{color:colorBtn[2][2]}">专利</h1></div>
           <v-chart ref="numberPie" :options = "numberPie" :auto-resize = true style="width:100%;height:100%"></v-chart></div>
         <div class="left2"><v-chart ref="numberLine" :options = "numberLine" :auto-resize = true style="width:100%;height:100%"></v-chart></div>
         <div class="right1"><v-chart ref="typeBar" class = "typeBar" :options = "typeBar" :auto-resize = true style="width:100%;height:100%"></v-chart></div>
@@ -93,7 +93,7 @@ export default {
       if (dpr >= 2490) {
         return 30;
       } else if (dpr < 2490 && dpr > 1024) {
-        return 14;
+        return 12;
       } else if (dpr <= 1024 && dpr > 876) {
         return 12;
       } else {
@@ -110,6 +110,7 @@ export default {
       ],
       regionData: [],
       fieldData: [],
+      numberData: [],
       fontSize: getDpr + 2,
       regionBar: {
         title: {
@@ -310,30 +311,15 @@ export default {
       },
       //三城一区
       numberPie: {
-        title: [
-          {
-            text: "数量",
-            left: "27%",
-            top: "center",
-            textStyle: {
-              color: "#ffffff",
-              align: "center",
-              fontSize: getDpr,
-              fontFamily: "Microsoft YaHei"
-            }
-          },
-          {
-            text: "营收",
-            left: "67%",
-            top: "center",
-            textStyle: {
-              color: "#ffffff",
-              align: "center",
-              fontSize: getDpr,
-              fontFamily: "Microsoft YaHei"
-            }
+        title: {
+          text: "技术中心企业营收分布（单位：家）",
+          top: "3%",
+          left: "center",
+          textStyle: {
+            color: "#ffffff",
+            fontSize: getDpr
           }
-        ],
+        },
         grid: {
           containLabel: true
         },
@@ -352,7 +338,7 @@ export default {
               color: "#7089cb",
               fontSize: getDpr
             },
-            data: ["中关村科学城", "怀柔科学城"]
+            data: ["北京经济技术开发区", "中关村科学城"]
           },
           {
             orient: "horizontal",
@@ -361,7 +347,7 @@ export default {
               color: "#7089cb",
               fontSize: getDpr
             },
-            data: ["北京经济技术", "未来科学城"]
+            data: ["怀柔科学城", "未来科学城", "其他"]
           }
         ],
 
@@ -382,29 +368,8 @@ export default {
                 }
               }
             },
-            radius: ["30%", "40%"],
-            center: ["30%", "50%"],
-            avoidLabelOverlap: false,
-            data: []
-          },
-          {
-            name: "营收",
-            type: "pie",
-            label: {
-              show: false,
-              position: "center",
-              formatter: "{a}"
-            },
-            itemStyle: {
-              normal: {
-                color: function(params) {
-                  var colorList = ["#fd9601", "#3c29d0", "#fd421c", "#0383de"];
-                  return colorList[params.dataIndex];
-                }
-              }
-            },
-            radius: ["30%", "40%"],
-            center: ["70%", "50%"],
+            radius: ["35%", "40%"],
+            center: ["50%", "50%"],
             avoidLabelOverlap: false,
             data: []
           }
@@ -942,8 +907,10 @@ export default {
             name: res[i].name
           });
         }
+        this.numberData.push(industryAmount);
+        this.numberData.push(industryIncome);
+        this.numberData.push(patentAmount);
         this.numberPie.series[0].data = industryAmount;
-        this.numberPie.series[1].data = industryIncome;
       }),
       mapIndustryDomain().then(res => {
         console.log("领域维度", res);
@@ -1057,6 +1024,18 @@ export default {
       this.colorBtn[1].splice(0, 3, "#ffffff", "#ffffff", "#7089cb");
       this.fieldPie.series[0].data = this.fieldData[2];
     },
+    numberIndustryAmountClick() {
+      this.colorBtn[2].splice(0, 3, "#7089cb", "#ffffff", "#ffffff");
+      this.numberPie.series[0].data = this.numberData[0];
+    },
+    numberIndustryIncomeClick() {
+      this.colorBtn[2].splice(0, 3, "#ffffff", "#7089cb", "#ffffff");
+      this.numberPie.series[0].data = this.numberData[1];
+    },
+    numberPatentAmountClick() {
+      this.colorBtn[2].splice(0, 3, "#ffffff", "#ffffff", "#7089cb");
+      this.numberPie.series[0].data = this.numberData[2];
+    },
     handler({ BMap, map }) {
       this.center.lng = 116.71575;
       this.center.lat = 40.255047;
@@ -1103,7 +1082,7 @@ export default {
     h1 {
       position: absolute;
       top: 40%;
-      padding: 0 2% 0;
+      padding: 0 30px 0;
     }
     .left {
       height: 100%;
