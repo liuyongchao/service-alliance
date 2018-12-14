@@ -111,11 +111,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .container {
-  width: 100%;
-  height: 100%;
+  width: 100%; 
   position: relative;
-  min-height: 100%;
-  //padding-bottom: 200px;
+  min-height: 100%; 
   box-sizing: border-box;
   .content {
     width: 1200px;
@@ -123,31 +121,27 @@ export default {
     margin: 50px auto;
     padding-top: 0px;
     .login {
-      height: 300px;
-      //background-color: #d13838;
+      height: 300px; 
       width: 800px;
       margin-left: 200px;
 
       padding-top: 150px;
 
-      .title {
-        //height: 60px;
+      .title { 
         line-height: 50px;
         font-size: 24px;
         margin-top: -100px;
         margin-bottom: 0px;
       }
       .logininput {
-        width: 400px;
-        //height: 400px;
+        width: 400px; 
         padding-left: 0px;
         padding-right: 80px;
         margin: 0 auto;
       }
       .loginbutton {
         width: 200px;
-        padding-left: 140px;
-        //margin: auto auto;
+        padding-left: 140px; 
       }
       .loginbottom {
         font-size: 14px;
