@@ -8,7 +8,7 @@
       <Head msg="Welcome to Your Vue.js App" />
       <div class="content">
         <div class="title">自评打分</div>
-        <div class="tabletitle">创新条件</div>
+        <div class="tabletitle">创新投入</div>
         <!-- 所在行业 -->
         <el-table
           border
@@ -122,7 +122,7 @@
           </el-table-column>
         </el-table>
 
-        
+        <div class="tabletitle">创新条件</div>
         <!-- 技术积累 -->
         <el-table
           border
@@ -401,57 +401,80 @@ export default {
           },
           {
             column0: "创新人才",
-            column1: "来技术中心从事研发工作的外部专家人数",
+            column1: "来技术中心从事研发工作的外部专家人月数",
             column2: "",
-            column3: "人"
+            column3: "人月"
           }
         ],
         technology: [
           {
             column0: "技术积累",
-            column1: "企业拥有全部有效发明专利数",
+            column1: "企业拥有的全部有效知识产权数",
+            column2: "",
+            column3: "件"
+          },
+          {
+            column0: "技术积累",
+            column1: "其中：全部有效发明专利数",
+            column2: "",
+            column3: "件"
+          },
+          {
+            column0: "技术积累",
+            column1: "企业全部研发项目数",
             column2: "",
             column3: "项"
           },
           {
             column0: "技术积累",
-            column1: "企业万人有效专利拥有数",
+            column1: "基础研究和应用研究项目数占全部研发项目数的比重",
             column2: "",
-            column3: "个/万人"
+            column3: "%"
           }
         ],
         innovativePlatform: [
           {
             column0: "创新平台",
-            column1: "创业技术开发仪器设备原值",
+            column1: "企业技术开发仪器设备原值",
             column2: "",
             column3: "万元"
           },
           {
             column0: "创新平台",
-            column1: "通过国家（国际组织）认证的实验室和监测机构数",
+            column1: "国家级研发平台数",
+            column2: "",
+            column3: "个"
+          },
+          {
+            column0: "创新平台",
+            column1: "省级研发平台数",
+            column2: "",
+            column3: "个"
+          },
+          {
+            column0: "创新平台",
+            column1: "通过国家（国际组织）认证的实验室和检测机构数",
             column2: "",
             column3: "个"
           }
         ],
         technologyOutput: [
           {
-            column0: "技术产出",
+            column0: "创新产出",
             column1: "当年被受理的专利申请数",
             column2: "",
             column3: "项"
           },
           {
-            column0: "技术产出",
-            column1:
-              "最近三年主持和参加制定的国际、国家和行业标准数（建筑业包含工法数）",
+            column0: "创新产出",
+            column1: "当年被受理的发明专利申请数",
             column2: "",
             column3: "项"
           },
           {
-            column0: "技术产出",
+            column0: "创新产出",
             column1:
-              "最近三年主持和参加制定的国际、国家和行业标准数（建筑业包含工法数）",
+              "最近三年主持和参加制定的国际、国家和行业标准数（建筑业包含近四年国家级工法）",
             column2: "",
             column3: "项"
           }
@@ -459,19 +482,19 @@ export default {
         innovationBenefit: [
           {
             column0: "创新效益",
-            column1: "当年企业总资产贡献率",
+            column1: "利润率",
             column2: "",
             column3: "%"
           },
           {
             column0: "创新效益",
-            column1: "新产品销售收入占主营业务收入的比重*",
+            column1: "新产品销售收入占主营业务收入的比重",
             column2: "",
             column3: "%"
           },
           {
             column0: "创新效益",
-            column1: "新产品销售利润占利润总额的比重*",
+            column1: "新产品销售利润占利润总额的比重",
             column2: "",
             column3: "%"
           }
@@ -479,19 +502,7 @@ export default {
         nationalPrize: [
           {
             column0: "获国家自然科学、技术发明、 科技进步奖项目数",
-            column1: "特等奖",
-            column2: "",
-            column3: "项"
-          },
-          {
-            column0: "获国家自然科学、技术发明、 科技进步奖项目数",
-            column1: "一等奖*",
-            column2: "",
-            column3: "项"
-          },
-          {
-            column0: "获省部级科技进步奖项目数",
-            column1: "二等奖*",
+            column1: "",
             column2: "",
             column3: "项"
           }
@@ -499,19 +510,7 @@ export default {
         provincialPrize: [
           {
             column0: "获省部级科技进步奖项目数",
-            column1: "特等奖",
-            column2: "",
-            column3: "项"
-          },
-          {
-            column0: "获省部级科技进步奖项目数",
-            column1: "一等奖*",
-            column2: "",
-            column3: "项"
-          },
-          {
-            column0: "获省部级科技进步奖项目数",
-            column1: "二等奖*",
+            column1: "",
             column2: "",
             column3: "项"
           }
@@ -522,40 +521,50 @@ export default {
   methods: {
     SelfEvaluateSubmit() {
       const SelfEvaluateForm = {
+        //基础自评
         basicId: this.basicId,
         basicSecret: this.basicSecret,
+        //所在行业
         tradeId: this.SelfEvaluateForm.tradeId[0].column2,
+        //创新经费
         income: this.SelfEvaluateForm.innovateFee[0].column2,
         fundsSpendIncomeProportion: this.SelfEvaluateForm.innovateFee[1]
           .column2,
         fundsSpend: this.SelfEvaluateForm.innovateFee[2].column2,
+        //创新人才
         developerProportion: this.SelfEvaluateForm.innovatePresion[0].column2,
         expertNum: this.SelfEvaluateForm.innovatePresion[1].column2,
         externalExpertNum: this.SelfEvaluateForm.innovatePresion[2].column2,
-        patentNum: this.SelfEvaluateForm.technology[0].column2,
-        patentNumThousand: this.SelfEvaluateForm.technology[1].column2,
+        //技术积累
+        intellectualPropertyNum: this.SelfEvaluateForm.technology[0].column2,
+        patentNum: this.SelfEvaluateForm.technology[1].column2,
+        projectNum: this.SelfEvaluateForm.technology[2].column2,
+        projectProportion: this.SelfEvaluateForm.technology[3].column2,
+
+        //创新平台
         deviceValue: this.SelfEvaluateForm.innovativePlatform[0].column2,
-        organizationNum: this.SelfEvaluateForm.innovativePlatform[1].column2,
+        countryPlatformNum: this.SelfEvaluateForm.innovativePlatform[1].column2,
+        provincePlatformNum: this.SelfEvaluateForm.innovativePlatform[2]
+          .column2,
+        organizationNum: this.SelfEvaluateForm.innovativePlatform[3].column2,
+        //创新产出
         acceptPatentNum: this.SelfEvaluateForm.technologyOutput[0].column2,
         acceptInventPatentNum: this.SelfEvaluateForm.technologyOutput[1]
           .column2,
         standardNum: this.SelfEvaluateForm.technologyOutput[2].column2,
+        //创新效益
         contributionRate: this.SelfEvaluateForm.innovationBenefit[0].column2,
         incomeProportion: this.SelfEvaluateForm.innovationBenefit[1].column2,
         profitProportion: this.SelfEvaluateForm.innovationBenefit[2].column2,
-        bigPrize0num: this.SelfEvaluateForm.nationalPrize[0].column2,
-        bigPrize1num: this.SelfEvaluateForm.nationalPrize[1].column2,
-        bigPrize2num: this.SelfEvaluateForm.nationalPrize[2].column2,
-        smallPrize0num: this.SelfEvaluateForm.provincialPrize[0].column2,
-        smallPrize1num: this.SelfEvaluateForm.provincialPrize[1].column2,
-        smallPrize2num: this.SelfEvaluateForm.provincialPrize[2].column2
+        //国家奖
+        bigPrizeNum: this.SelfEvaluateForm.nationalPrize[0].column2,
+        //省级奖
+        smallPrizeNum: this.SelfEvaluateForm.provincialPrize[0].column2
       };
       console.log(SelfEvaluateForm);
       selfEvaluate(SelfEvaluateForm).then(res => {
         console.log(res);
         if (res < 60) {
-          this.scoreColor = "#f78989";
-        } else if (res >= 60 && res < 75) {
           this.scoreColor = "#fd4e27";
         } else {
           this.scoreColor = "teal";
@@ -564,10 +573,10 @@ export default {
         this.$msgbox({
           title: "消息",
           message: h("p", null, [
-            h("span", null, "内容可以是 "),
+            h("span", null, "您本次自评得分为："),
             h(
               "i",
-              { style: "color:" + this.scoreColor + ";font-size:18px;" },
+              { style: "color:" + this.scoreColor + ";font-size:20px;" },
               res.toFixed(2) + "分"
             )
           ]),
