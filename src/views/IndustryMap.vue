@@ -36,7 +36,7 @@
       <bm-boundary name="北京市延庆区" :strokeWeight="1" strokeColor="#020a17ff" fillColor="#102749" :fillOpacity = 0.2></bm-boundary>
       </baidu-map>
         </div>
-        <div class="right">
+        <div class="right" @mouseenter="enter()" @mouseleave="leave()">
           <div class="button button1"  @click="fieldIndustryAmountClick"><h1 :style="{color:colorBtn[1][0]}">数量</h1></div>
           <div class="button button2" @click="fieldIndustryIncomeClick"><h1 :style="{color:colorBtn[1][1]}">营收</h1></div>
           <div class="button button3" @click="fieldPatentAmountClick"><h1 :style="{color:colorBtn[1][2]}">专利</h1></div>
@@ -102,6 +102,8 @@ export default {
     })();
 
     return {
+      timer: "",
+      count: 1,
       //区域分布情况
       colorBtn: [
         ["#7089cb", "#ffffff", "#ffffff"],
@@ -179,6 +181,11 @@ export default {
             lineStyle: {
               color: "#7089cb"
             }
+          },
+          nameTextStyle: {
+            fontSize: getDpr,
+            fontWeight: "bold",
+            padding: [3, 70, 5, 6]
           },
           axisLabel: {
             fontWeight: "bold",
@@ -277,11 +284,11 @@ export default {
                 fontSize: getDpr,
                 fontWeight: "bold",
                 formatter: "{c}\n",
-                padding: [0, -40]
+                padding: [0, -30]
               }
             },
             labelLine: {
-              length2: 50
+              length2: 30
             },
             itemStyle: {
               normal: {
@@ -581,7 +588,7 @@ export default {
           {
             name: "2012年",
             type: "bar",
-            data: [193, 234, 310, 669],
+            data: [],
             itemStyle: {
               normal: {
                 barBorderRadius: [0, 5, 5, 0],
@@ -851,14 +858,7 @@ export default {
       }
     };
   },
-  create() {
-    setInterval(() => {
-      //this.fieldIndustryAmountClick;
-      //this.fieldIndustryIncomeClick;
-      this.fieldPatentAmountClick;
-      console.log(123);
-    }, 3000);
-  },
+
   mounted() {
     let me = this;
     mapIndustries().then(res => {
@@ -907,7 +907,7 @@ export default {
             name: res[i].name
           });
           industryIncome.push({
-            value: res[i].industryIncome,
+            value: (res[i].industryIncome / 10000).toFixed(0),
             name: res[i].name
           });
           patentAmount.push({
@@ -931,7 +931,7 @@ export default {
             name: res[i].name
           });
           industryIncome.push({
-            value: res[i].industryIncome,
+            value: (res[i].industryIncome / 10000).toFixed(0),
             name: res[i].name
           });
           patentAmount.push({
@@ -953,7 +953,7 @@ export default {
           for (let k = 0; k < res.length; k++) {
             if (res[k].name === me.regionBar.xAxis.data[i]) {
               industryAmount.push(res[k].industryAmount);
-              industryIncome.push(res[k].industryIncome);
+              industryIncome.push(res[k].industryIncome / 10000);
               patentAmount.push(res[k].patentAmount);
             }
           }
@@ -962,6 +962,7 @@ export default {
         this.regionData.push(industryIncome);
         this.regionData.push(patentAmount);
         this.regionBar.series[0].data = industryAmount;
+        this.regionBar.yAxis.name = "(单位：家)";
       }),
       mapListAmount().then(res0 => {
         console.log("上市情况", res0);
@@ -1004,21 +1005,68 @@ export default {
       }
       this.revenuePie.series[0].data = industryAmount;
     });
+    //领域分布自动切换
+    this.timer = setInterval(() => {
+      //this.fieldIndustryAmountClick;
+      //this.fieldIndustryIncomeClick;
+      console.log(this.count % 3);
+      switch (this.count % 3) {
+        case 0:
+          this.fieldIndustryAmountClick();
+          break;
+        case 1:
+          this.fieldIndustryIncomeClick();
+          break;
+        default:
+          this.fieldPatentAmountClick();
+          break;
+      }
+      this.count++;
+    }, 3000);
   },
   methods: {
+    //鼠标悬停移开事件
+    enter() {
+      console.log("鼠标悬停");
+      clearInterval(this.timer);
+    },
+    leave() {
+      console.log("鼠标离开");
+      //领域分布自动切换
+      this.timer = setInterval(() => {
+        //this.fieldIndustryAmountClick;
+        //this.fieldIndustryIncomeClick;
+        console.log(this.count % 3);
+        switch (this.count % 3) {
+          case 0:
+            this.fieldIndustryAmountClick();
+            break;
+          case 1:
+            this.fieldIndustryIncomeClick();
+            break;
+          default:
+            this.fieldPatentAmountClick();
+            break;
+        }
+        this.count++;
+      }, 3000);
+    },
     regionIndustryAmountClick() {
       this.colorBtn[0].splice(0, 3, "#7089cb", "#ffffff", "#ffffff");
       console.log(this.colorBtn);
 
       this.regionBar.series[0].data = this.regionData[0];
+      this.regionBar.yAxis.name = "(单位：家)";
     },
     regionIndustryIncomeClick() {
       this.colorBtn[0].splice(0, 3, "#ffffff", "#7089cb", "#ffffff");
       this.regionBar.series[0].data = this.regionData[1];
+      this.regionBar.yAxis.name = "(单位：亿元)";
     },
     regionPatentAmountClick() {
       this.colorBtn[0].splice(0, 3, "#ffffff", "#ffffff", "#7089cb");
       this.regionBar.series[0].data = this.regionData[2];
+      this.regionBar.yAxis.name = "(单位：项)";
     },
     fieldIndustryAmountClick() {
       this.colorBtn[1].splice(0, 3, "#7089cb", "#ffffff", "#ffffff");
@@ -1186,19 +1234,19 @@ export default {
       .button1 {
         height: 6%;
         width: 20%;
-        top: 15%;
+        top: 12%;
         left: 18%;
       }
       .button2 {
         height: 6%;
         width: 20%;
-        top: 15%;
+        top: 12%;
         left: 40%;
       }
       .button3 {
         height: 6%;
         width: 20%;
-        top: 15%;
+        top: 12%;
         right: 18%;
       }
     }
