@@ -6,27 +6,21 @@
         <div class="title">会员登录</div>
         <div class="logininput">
           <div>
-            <el-form :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left">
-              <el-form-item label-width="100px" label prop="name">
+            <el-form :model="loginForm" :rules="loginRules" ref="loginForm">
+              <el-form-item prop="name">
                 <el-input v-model="loginForm.username" placeholder="请输入用户名"></el-input>
               </el-form-item>
-              <el-form-item label-width="100px" label prop="name">
-                <el-input v-model="loginForm.password" placeholder="请输入密码"></el-input>
+              <el-form-item prop="name">
+                <el-input type="password" v-model="loginForm.password" placeholder="请输入密码"></el-input>
               </el-form-item>
-              <div class="loginbutton">
+              <div class="loginbutton1">
                 <el-form-item>
-                  <el-button type="primary" @click.native.prevent="handleLogin">登录</el-button>
+                  <el-button type="primary" @click="handleLogin" style="width:40%">登录</el-button>   
+                  <el-button type="danger" @click="handleRegister" style="width:40%">注册</el-button>
+                           
                 </el-form-item>
               </div>
             </el-form>
-
-            <div class="loginbottom" style="display: block;">
-              <a href="#" class="link" id="forgetpwd" target="_blank">忘了密码？</a>
-              <span class="dotted">|</span>
-              <router-link class="link" tag="a" to="/register">注册新帐号</router-link>
-              <span class="dotted">|</span>
-              <a class="link" id="feedback_web" href="#" target="_blank">联系我们</a>
-            </div>
           </div>
         </div>
       </div>
@@ -76,6 +70,9 @@ export default {
     };
   },
   methods: {
+    handleRegister(){
+      this.$router.push("/register");
+    },
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
@@ -123,7 +120,8 @@ export default {
     .login {
       height: 300px;
       width: 800px;
-      margin-left: 200px;
+      margin: 0 auto;
+      //margin-left: 200px;
 
       padding-top: 150px;
 
@@ -131,12 +129,13 @@ export default {
         line-height: 50px;
         font-size: 24px;
         margin-top: -100px;
-        margin-bottom: 0px;
+        text-align: center;
+        //margin-bottom: 0px;
       }
       .logininput {
-        width: 400px;
+        width: 300px;
         padding-left: 0px;
-        padding-right: 80px;
+        //padding-right: 80px;
         margin: 0 auto;
       }
       .loginbutton {

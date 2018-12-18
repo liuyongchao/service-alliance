@@ -31,7 +31,7 @@
 </el-radio-group>
 </div>
 <div class="basicevaluate">
-<h1>4.企业满足<span style="color:red">(多选)</span></h1> 
+<h1>4.企业满足<span style="color:red">(可多选)</span></h1> 
 <el-checkbox-group v-model="BasicEvaluateForm.companyMeet" @change="handleCheckcompanyMeetChange">
 <el-row>
     <el-col v-for="(item,index) in basicCompanyMeet" :key="index" :span="24"><el-checkbox  :label="item.id">{{item.context}}</el-checkbox></el-col>
@@ -145,7 +145,6 @@ export default {
       this.$store
         .dispatch("BasicEvaluate", this.BasicEvaluateForm)
         .then(res => {
-          debugger;
           if (res.basicId != null && res.basicSecret != null) {
             this.$confirm(
               "恭喜您，基础评价达标，下一步进行企业自评打分!",

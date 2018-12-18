@@ -586,7 +586,7 @@ export default {
         },
         series: [
           {
-            name: "2012年",
+            name: "企业数量",
             type: "bar",
             data: [],
             itemStyle: {
@@ -595,10 +595,10 @@ export default {
                 color: function(params) {
                   //我这边就两个柱子，大体就两个柱子颜色渐变，所以数组只有两个值，多个颜色就多个值
                   var colorList = [
-                    ["#86e9fc", "#07b8d9"],
-                    ["#01ced3", "#11a5a9"],
-                    ["#0281de", "#3d2ad1"],
-                    ["#fe9b1a", "#fd431c"]
+                    ["#86e9fc", "#07b8d9"], 
+                    ["#fe9b1a", "#fd431c"],          
+                    ["#0281de", "#3d2ad1"],                   
+                    ["rgb(235,89,43)", "rgb(234,52,37)"]
                   ];
 
                   var index = params.dataIndex;
@@ -697,7 +697,7 @@ export default {
       },
       field_points: [],
       pointColor: [
-        "#dc2d32",
+        "#1d76d2",
         "#db4425",
         "#eea640",
         "#fbed32",
@@ -705,7 +705,7 @@ export default {
         "#40794e",
         "#44784a",
         "#527974",
-        "#1d76d2",
+        "#dc2d32",       
         "#4261b4"
       ],
       center: { lng: 0, lat: 0 },
@@ -967,7 +967,7 @@ export default {
       mapListAmount().then(res0 => {
         console.log("上市情况", res0);
         const industryAmount = [];
-        industryAmount.push(res0[1].industryAmount);
+        // industryAmount.push(res0[1].industryAmount);
         mapOwnershipAmount().then(res => {
           console.log("所有制", res);
           for (let i = 0; i < me.typeBar.yAxis.data.length; i++) {
@@ -977,6 +977,8 @@ export default {
               }
             }
           }
+          industryAmount.push(res0[1].industryAmount);
+          console.log(industryAmount)
           this.typeBar.series[0].data = industryAmount;
         });
       }),
@@ -1215,7 +1217,7 @@ export default {
     z-index: 1;
     border: 1px solid #7089cb;
     h1 {
-      padding-top: 6%;
+      padding-top: 10%;
     }
   }
   .button:hover {
