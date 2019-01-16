@@ -41,8 +41,12 @@
   <dd>联系我们</dd>
 </dl>
 <dl>
-  <div class="qrcode"></div> 
-   <p>微信公众号</p><p>关注长风联盟</p>
+  <div class="qrcode1"></div> 
+   <p style="font-size:14px">订阅号</p><p>北京企业技术中心创新服务联盟</p>
+</dl>
+<dl>
+  <div class="qrcode2"></div> 
+   <p style="font-size:14px">联盟官方微信</p><p>联系人：朱赛男 18612317646</p>
 </dl>
 </div >
     </div>
@@ -58,7 +62,7 @@
     margin: 0 auto;
 
     dl {
-      width: 15%;
+      width: 14%;
       height: 200px;
       float: left;
       dt {
@@ -76,12 +80,22 @@
         font-size: 12px;
         padding: 5px 0 0;
       }
-      .qrcode {
-        width: 100%;
-        height: 140px;
-        background: url(../assets/image/QRCode.png) no-repeat 50% 50%;
+      .qrcode1 {
+        width: 120px;
+        height: 120px;
+        margin:20px auto 0;
+        background: url(../assets/image/leftcode.png);
+        background-size: 100% 100%;
+      }
+      .qrcode2 {
+        margin:20px auto 0;
+        width: 120px;
+        height: 120px;
+        background: url(../assets/image/rightcode.png);
+        background-size: 100% 100%;
       }
       p {
+        font-size: 12px;
         margin: 5px 0 0;
         color: #ffffff;
       }

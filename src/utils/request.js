@@ -3,6 +3,7 @@ import { Message, MessageBox } from "element-ui";
 import store from "../store";
 import router from "../router";
 import { getToken } from "@/utils/auth";
+import Vue from "vue";
 
 // 创建axios实例
 const service = axios.create({
@@ -43,6 +44,7 @@ service.interceptors.response.use(
      * code为非200是抛错 可结合自己业务进行修改
      */
     const res = response.data;
+    let me = this;
     //const res = response;
     if (response.status !== "200" && response.status !== 200) {
       if (response.status === "401" || response.status === 401) {
@@ -83,11 +85,16 @@ service.interceptors.response.use(
           cancelButtonText: "取消",
           type: "warning"
         });
-      }
-      if (resonse.data.code === "3004" || resonse.data.code === 3004) {
+      }else if (resonse.data.code === "3004" || resonse.data.code === 3004) {
         //密码用户名不匹配
         console.log("未授权/授权失败");
         MessageBox.confirm("您输入的用户名密码有误，请重新输入", "温馨提示！", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        });
+      }else{
+        MessageBox.confirm("登录过期请重新登录！", "温馨提示！", {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
           type: "warning"
@@ -111,6 +118,8 @@ service.interceptors.response.use(
           MessageBox.confirm(resonse.data.message, "温馨提示:", {
             confirmButtonText: "确定",
             type: "warning"
+          }).then(()=>{
+            this.$router.push({path:"/login"})
           });
         }
       }

@@ -308,7 +308,6 @@ export default {
   }
   .bottom {
     height: 396px;
-    width: 1400px;
     padding: 20px 0 0;
 
     padding: 20px 0px 0 0px;
