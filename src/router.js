@@ -17,6 +17,8 @@ import test from "./views/test.vue";
 // 二级路由
 import Notice from "./views/dynamicnews/Notice.vue";
 import News from "./views/dynamicnews/News.vue";
+import Article from "./views/Article.vue";
+import ArticleList from "./views/ArticleList.vue";
 
 Vue.use(Router);
 
@@ -38,6 +40,23 @@ const router = new Router({
       path: "/membercenter",
       name: "membercenter",
       component: MemberCenter
+    },
+    {
+      path: "/articlelist",
+      name: "articlelist",
+      component: ArticleList,
+      children: [
+        {
+          path: "/news",
+          name: "news",
+          component: News
+        }
+      ]
+    },
+    {
+      path: "/article",
+      name: "article",
+      component: Article
     },
     {
       path: "/dynamicnews",

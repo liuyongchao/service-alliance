@@ -5,14 +5,20 @@
       <div class="content">
         <div class="top">
           <div class="top-left">
-            <img src="../assets/image/banner.png" alt="">
+            <template>
+              <el-carousel indicator-position="inside" height="430px">
+              <el-carousel-item v-for="(item,index) in images" :key="index">
+              <img :src="item.uri" alt="" style="width:820px;height:430px">
+              </el-carousel-item></el-carousel>
+            </template>
+            
           </div>
           <div class="top-right">
             <div class="top-right-top"  >
               
 <div class="top-right-top-float">
   
-                        <p>北京企业技术中心创新服务联盟是在市经信委的指导与支持下成立的非营利性社会组织，负责《北京市企业技术中心建设评价规范》贯标工作，并为企业提供投资并购、政府申报、技术培训、区域间合作等服务。致力于搭建政府与企业间无障碍沟通桥梁，成为企业与企业间交流合作的纽带。</p>
+            <p>北京企业技术中心创新服务联盟是在市经信委的指导与支持下成立的非营利性社会组织，负责《北京市企业技术中心建设评价规范》贯标工作，并为企业提供投资并购、政府申报、技术培训、区域间合作等服务。致力于搭建政府与企业间无障碍沟通桥梁，成为企业与企业间交流合作的纽带。</p>
             <a href="">查看更多</a>
 
 </div>
@@ -25,41 +31,20 @@
         </div>
         <div class="center">
           <div class="center-left">
-            <div class="box"><p>联盟动态</p></div>
-            <ul>             
+            <div class="box"><p>联盟动态</p><router-link tag="p" class="more" :to="{name:'articlelist',params:{index:1}}">更多</router-link></div>
+            <ul v-for="(item,index) in tableData0.list" :key="index">
               <li>
                 <div class="news-image">
-                    <img src="../assets/image/news01.png" alt="">
+                    <img :src="item.preview.uri" alt="" style="width:205px;height:131px">
                 </div>
                 <div class="news-content">
-                <a href="">北京企业技术中心创新服务联盟成立</a>
-                <p>2017年4月24日,北京企业技术中心创新服务联盟成立大会暨第一次工作会在软交所顺利召开</p>             
-                <p class="type">[企业新闻]</p>
-                <p class="date">2017-07-10</p>
+              <router-link tag="a" :to="{name:'article',params:{id:item.id}}">{{item.title}}</router-link>
+                <!-- <a href="">北京企业技术中心创新服务联盟成立</a> -->
+                <p>{{item.context}}</p>             
+                <p class="type">[{{item.classify}}]</p>
+                <p class="date">{{timestampToTime(item.uploadTime)}}</p>
                 </div>
-              </li>
-              <li>
-                <div class="news-image">
-                    <img src="../assets/image/news02.png" alt="">
-                </div>
-                <div class="news-content">
-                <a href="">北京市企业技术中心创新服务联盟2018年第二届理事会在京召开</a>
-                <p>北京市企业技术创新服务联盟是在市经信委的指导和支持下，为进一步深化“放管服”改革，构建了由政府主导认定，优化为标准审核形式——全国首创及唯一依托标准进行企业技术中心建设与管理的模式。</p>             
-                <p class="type">[企业新闻]</p>
-                <p class="date">2017-07-10</p>
-                </div>
-              </li>
-              <li>
-                <div class="news-image">
-                    <img src="../assets/image/news03.png" alt="">
-                </div>
-                <div class="news-content">
-                <a href="">企业技术中心联盟加入胚芽企业服务平台</a>
-                <p>北京企业技术中心创新服务联盟（以下简称联盟）在市经信委的指导下，自2017年成立以来，成员数量达600余家，涵盖高精尖科技各领域大中型领军企业，在企业技术中心的搭建和创新服务、政企交流等方面影响巨大</p>             
-                <p class="type">[企业新闻]</p>
-                <p class="date">2017-07-10</p>
-                </div>
-              </li>
+              </li>                         
             </ul>
           </div>
           <div class="center-right">
@@ -70,40 +55,21 @@
         </div>
         <div class="bottom">
           <div class="bottom-left">
-              <div class="box"><p>最新通知</p></div>
-              <ul>
+              <div class="box"><p>最新通知</p><router-link tag="p" class="more" :to="{name:'articlelist',params:{index:2}}">更多</router-link></div>
+              <ul v-for="(item,index) in tableData1.list" :key="index">
                 <li>
                   <div class="publishdate">
-                    <h1>2018</h1>
-                    <p>11-20</p>
+                    <h1>{{timestampToTime(item.uploadTime).substring(0,4)}}</h1>
+                    <p>{{timestampToTime(item.uploadTime).substring(5,10)}}</p>
                   </div>
-                  <div class="publishtitle">关于召开高科技企业2018年融资专场对接会的通知</div>
-                </li>
-                <li>
-                 <div class="publishdate">
-                    <h1>2018</h1>
-                    <p>11-19</p>
-                  </div>
-                  <div class="publishtitle">申报北京：开展2018年度北京市市级企业技术中心创建工作的预通知</div>
-                </li>
-                <li>
-                  <div class="publishdate">
-                    <h1>2018</h1>
-                    <p>11-19</p>
-                  </div>
-                  <div class="publishtitle">关于召开2018年北京企业技术中心创新服务联盟揭牌仪式的通知</div>
+                  <div class="publishtitle"><router-link tag="a" :to="{name:'article',params:{id:item.id}}">{{item.title}}</router-link></div>
                 </li>
               </ul>
           </div>
           <div class="bottom-center">
-              <div class="box"><p>一周政策</p></div>
-              <ul>
-                <li><a href="">组织申报新一代关于召开高科技企业2018年融资专场对接会的通知</a></li>
-                <li><a href="">申报2019年度示范园区专利战略专项资金</a></li>
-                <li><a href="">开展网络安全技术应用试点示范项目推荐工作</a></li>
-                <li><a href="">国家重点研发计划“战略性国际科技创新合作”重点专项2018年度联合研发与示范项目申报指南</a></li>
-                <li><a href="">著作权侵权</a></li>
-                <li><a href="">交通事故</a></li>
+              <div class="box"><p>一周政策</p><router-link tag="p" class="more" :to="{name:'articlelist',params:{index:3}}">更多</router-link></div>
+              <ul v-for="(item,index) in tableData2.list" :key=index >
+                <li><router-link tag="a" :to="{name:'article',params:{id:item.id}}">{{item.title}}</router-link></li>
               </ul>
               
           </div>
@@ -124,10 +90,17 @@
 //import HelloWorld from "@/components/HelloWorld.vue";
 import Head from "@/components/Head.vue";
 import Footer from "@/components/Footer.vue";
+import {articleList} from "@/api/article";
+import {getImages} from "@/api/image";
+
 export default {
   data() {
     return {
-      minHeight: 10
+      minHeight: 10,
+      tableData0:"",
+      tableData1:"",
+      tableData2:"",
+      images:""
     };
   },
   mounted() {
@@ -136,6 +109,46 @@ export default {
     window.onresize = function() {
       me.minHeight = document.documentElement.clientHeight - 200;
     };
+    this.getArticleList0()
+    this.getArticleList1()
+    this.getArticleList2()
+    this.handleImages();
+  },
+  methods:{
+    handleImages(){
+        getImages().then(res => {
+          this.images = res;
+        })
+      },
+    //联盟动态
+    getArticleList0(){
+          articleList(1,3,0).then(res => {
+            this.tableData0 = res;
+            
+          })
+        },
+    //最新通知
+    getArticleList1(){
+          articleList(1,5,1).then(res => {
+            this.tableData1 = res;
+          })
+        },
+    //一周政策
+    getArticleList2(){
+          articleList(1,5,2).then(res => {
+            this.tableData2 = res;
+          })
+        },
+    timestampToTime(timestamp) {
+                const date = new Date(timestamp );//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+                const Y = date.getFullYear() + '-';
+                const M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+                const D = (date.getDate() < 10 ? '0'+date.getDate() : date.getDate())+ ' ';
+                const h = (date.getHours() < 10 ? '0'+date.getHours() : date.getHours())+ ':';
+                const m = (date.getMinutes() < 10 ? '0'+date.getMinutes() : date.getMinutes())+ ':';
+                const s = date.getSeconds() < 10 ? '0'+date.getSeconds() : date.getSeconds();
+                return Y+M+D+h+m+s;//时分秒可以根据自己的需求加上
+    },
   },
   components: {
     Head,
@@ -230,15 +243,26 @@ export default {
       display: inline-block;
       margin-left: -20px;
       .box {
+        position: relative;
+        height: 46px;
         border-bottom: 1px solid #0088d3;
         p {
+          display: inline-block;
           text-align: center;
+          float: left;
           height: 46px;
           width: 100px;
           line-height: 46px;
           color: #ffffff;
           background-color: #0088d3;
         }
+        p.more{
+          float: right;
+          cursor: pointer;
+          color: #555555;
+        display: inline-block;
+        background-color:#fff;
+      }
       }
       li {
         height: 131px;
@@ -312,16 +336,27 @@ export default {
 
     padding: 20px 0px 0 0px;
     .box {
-      border-bottom: 1px solid #0088d3;
-      p {
-        text-align: center;
+        position: relative;
         height: 46px;
-        width: 100px;
-        line-height: 46px;
-        color: #ffffff;
-        background-color: #0088d3;
+        border-bottom: 1px solid #0088d3;
+        p {
+          display: inline-block;
+          text-align: center;
+          float: left;
+          height: 46px;
+          width: 100px;
+          line-height: 46px;
+          color: #ffffff;
+          background-color: #0088d3;
+        }
+        p.more{
+          float: right;
+          cursor: pointer;
+          color: #555555;
+        display: inline-block;
+        background-color:#fff;
       }
-    }
+      }
     .bottom-left {
       float: left;
       width: 400px;
@@ -351,6 +386,10 @@ export default {
             margin: 0 0 20px 10px;
             color: #555555;
             display: inline-block;
+            a{
+              text-decoration: none;
+              color: #555555;
+            }
           }
         }
       }

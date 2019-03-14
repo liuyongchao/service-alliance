@@ -14,22 +14,30 @@
               label-width="100px"
               label="用户名"
               prop="name"
+              hidden
             >
               <el-input v-model="registerForm.username" @blur="registerOccupiedUsernameCheck" placeholder="请输入用户名"></el-input>
+            </el-form-item>
+            <el-form-item
+              label-width="100px"
+              label="企业名称"
+              prop="name"
+            >
+              <el-input v-model="registerForm.companyName" @blur="registerOccupiedCompanynameCheck" placeholder="请输入企业名称"></el-input>
             </el-form-item>
             <el-form-item
               label-width="100px"
               label="密码"
               prop="name"
             >
-              <el-input v-model="registerForm.password" placeholder="请输入密码"></el-input>
+              <el-input v-model="registerForm.password" type="password" placeholder="请输入密码"></el-input>
             </el-form-item>
             <el-form-item
               label-width="100px"
               label="确认密码"
               prop="name"
             >
-              <el-input v-model="registerForm.password1" placeholder="请再次输入密码"></el-input>
+              <el-input v-model="registerForm.password1" type="password" placeholder="请再次输入密码"></el-input>
             </el-form-item>
             <el-form-item
               label-width="100px"
@@ -45,17 +53,24 @@
             >
               <el-input v-model="registerForm.phoneNum" placeholder="请输入联系电话"></el-input>
             </el-form-item>
+            <el-form-item>
+              <el-button
+                type="primary"
+                @click="registerSubmit"
+              >注册</el-button>
+            </el-form-item>
             <el-form-item
               label-width="100px"
               label="电子邮箱"
               prop="name"
+              hidden
             >
               <el-input v-model="registerForm.email" placeholder="请输入电子邮箱"></el-input>
             </el-form-item>
           </el-form>
         </div>
       </div>
-      <div class="register-right">
+      <div class="register-right1">
         <div>
           <el-form
             ref="form"
@@ -64,15 +79,9 @@
           >
             <el-form-item
               label-width="100px"
-              label="企业名称"
-              prop="name"
-            >
-              <el-input v-model="registerForm.companyName" @blur="registerOccupiedCompanynameCheck" placeholder="请输入企业名称"></el-input>
-            </el-form-item>
-            <el-form-item
-              label-width="100px"
               label="通讯地址"
               prop="name"
+              hidden
             >
               <el-input v-model="registerForm.address" placeholder="请输入通讯地址"></el-input>
             </el-form-item>
@@ -80,6 +89,7 @@
               label-width="100px"
               label="主营业务"
               prop="name"
+              hidden
             >
               <el-input v-model="registerForm.business" placeholder="请输入主营业务"></el-input>
             </el-form-item>
@@ -87,18 +97,15 @@
               label-width="100px"
               label="企业负责人"
               prop="name"
+              hidden
             >
               <el-input v-model="registerForm.head" placeholder="请输入企业负责人"></el-input>
             </el-form-item>
-
-
-
-
-
  <el-form-item
               label-width="100px"
               label="是否上市"
               prop="name"
+              hidden
             >
     <el-select v-model="registerForm.isListed" style="width:100%" placeholder="是否上市">
       <el-option label="是" value="true"></el-option>
@@ -109,16 +116,12 @@
               label-width="100px"
               label="上市代码"
               prop="name"
+              hidden
             >
               <el-input v-model="registerForm.listedCode" placeholder="请输入上市代码"></el-input>
             </el-form-item>
 
-            <el-form-item>
-              <el-button
-                type="primary"
-                @click="registerSubmit"
-              >注册</el-button>
-            </el-form-item>
+            
           </el-form>
         </div>
       </div>
@@ -180,8 +183,9 @@ export default {
       });
     },
     registerSubmit() {
+      this.registerForm.username = this.registerForm.companyName;
       register(this.registerForm).then(res => {
-        this.$alert(res, "温馨提醒", {
+        this.$alert(res.message+ "!", "温馨提醒", {
           confirmButtonText: "确定"
         }).then(() => {
           this.$router.push("/login");
@@ -215,7 +219,8 @@ export default {
     .register-left {
       width: 600px;
       height: 400px;
-      float: left;
+      margin:0 auto;
+      //float: left;
     }
     .register-right {
       width: 600px;

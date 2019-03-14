@@ -42,11 +42,11 @@
 </dl>
 <dl>
   <div class="qrcode1"></div> 
-   <p style="font-size:14px">订阅号</p><p>北京企业技术中心创新服务联盟</p>
+   <p style="font-size:14px">订阅号</p><p>北京企业技术</p><p>中心创新服务联盟</p>
 </dl>
 <dl>
   <div class="qrcode2"></div> 
-   <p style="font-size:14px">联盟官方微信</p><p>联系人：朱赛男 18612317646</p>
+   <p style="font-size:14px">联盟官方微信</p><p>联系人电话</p><p>朱赛男 18612317646</p>
 </dl>
 </div >
     </div>

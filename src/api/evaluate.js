@@ -36,6 +36,13 @@ export function selfTrades() {
     method: "get"
   });
 }
+//获取所在领域
+export function selfDomains() {
+  return request({
+    url: "/evaluate/self/domains",
+    method: "get"
+  });
+}
 //提交自评
 export function selfEvaluate(SelfEvaluateForm) {
   return request({

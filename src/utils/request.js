@@ -1,9 +1,7 @@
 import axios from "axios";
-import { Message, MessageBox } from "element-ui";
+import { MessageBox } from "element-ui";
 import store from "../store";
-import router from "../router";
 import { getToken } from "@/utils/auth";
-import Vue from "vue";
 
 // 创建axios实例
 const service = axios.create({
@@ -11,7 +9,8 @@ const service = axios.create({
   //baseURL: "https://easy-mock.com/mock/5b6bea2cdfe6643d4e6bb9b8/vue-rjs",
   //baseURL: "http://192.168.65.54:8081/api/backend",
   //baseURL: "http://192.168.65.54:8080/api/reception",
-  baseURL: "http://api.reception.cxfwlm.org.cn",
+  //baseURL: "http://api.reception.cxfwlm.org.cn",
+  baseURL: "http://api.reception.bymyself.club",
   timeout: 15000 // 请求超时时间
 });
 
@@ -44,7 +43,6 @@ service.interceptors.response.use(
      * code为非200是抛错 可结合自己业务进行修改
      */
     const res = response.data;
-    let me = this;
     //const res = response;
     if (response.status !== "200" && response.status !== 200) {
       if (response.status === "401" || response.status === 401) {

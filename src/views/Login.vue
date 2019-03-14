@@ -81,7 +81,6 @@ export default {
             .dispatch("Login", this.loginForm)
             .then(() => {
               this.loading = false;
-              console.log(123);
               let redirect = decodeURIComponent(
                 this.$route.query.redirect || "/"
               );
