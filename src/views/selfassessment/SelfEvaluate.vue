@@ -653,6 +653,9 @@ export default {
   },
   methods: {
     SelfEvaluateSubmit() {
+      
+debugger
+
       const SelfEvaluateForm = {
         //基础自评
         basicId: this.basicId,
@@ -690,7 +693,7 @@ export default {
         standardNum: this.SelfEvaluateForm.technologyOutput[2].column2,
         //创新效益
         contributionRate:
-          this.SelfEvaluateForm.innovationBenefit[0].column2 / 100,
+          this.SelfEvaluateForm.innovationBenefit[0].column2 >= 0 ? this.SelfEvaluateForm.innovationBenefit[0].column2 / 100 : 0,
         incomeProportion:
           this.SelfEvaluateForm.innovationBenefit[1].column2 / 100,
         profitProportion:
@@ -700,6 +703,21 @@ export default {
         //省级奖
         smallPrizeNum: this.SelfEvaluateForm.provincialPrize[0].column2
       };
+
+  //新产品销售利润占利润总额的比重为负值情况处理
+  if(this.SelfEvaluateForm.innovationBenefit[2].column2 < 0 ){
+    const h = this.$createElement;
+    this.$msgbox({
+          title: "消息",
+          message: h('p', null, [
+            h('span', null, '新产品销售利润占利润总额的比重为负值'),
+            h('i', { style: 'color: teal' }, '请联系系统管理员！')
+          ]),
+          confirmButtonText: "确定"
+        })
+        return false;
+  }
+
       selfEvaluate(SelfEvaluateForm).then(res => {
         //创新经费
         //this.SelfEvaluateForm.innovateFee[0].column2 = res.income,    

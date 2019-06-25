@@ -32,8 +32,8 @@
         <div class="center">
           <div class="center-left">
             <div class="box"><p>联盟动态</p><router-link tag="p" class="more" :to="{name:'articlelist',params:{index:1}}">更多</router-link></div>
-            <ul v-for="(item,index) in tableData0.list" :key="index">
-              <li>
+            <ul >
+              <li v-for="(item,index) in tableData0.list" :key="index">
                 <div class="news-image">
                     <img :src="item.preview.uri" alt="" style="width:205px;height:131px">
                 </div>
@@ -56,8 +56,8 @@
         <div class="bottom">
           <div class="bottom-left">
               <div class="box"><p>最新通知</p><router-link tag="p" class="more" :to="{name:'articlelist',params:{index:2}}">更多</router-link></div>
-              <ul v-for="(item,index) in tableData1.list" :key="index">
-                <li>
+              <ul>
+                <li v-for="(item,index) in tableData1.list" :key="index">
                   <div class="publishdate">
                     <h1>{{timestampToTime(item.uploadTime).substring(0,4)}}</h1>
                     <p>{{timestampToTime(item.uploadTime).substring(5,10)}}</p>
@@ -68,8 +68,8 @@
           </div>
           <div class="bottom-center">
               <div class="box"><p>一周政策</p><router-link tag="p" class="more" :to="{name:'articlelist',params:{index:3}}">更多</router-link></div>
-              <ul v-for="(item,index) in tableData2.list" :key=index >
-                <li><router-link tag="a" :to="{name:'article',params:{id:item.id}}">{{item.title}}</router-link></li>
+              <ul>
+                <li v-for="(item,index) in tableData2.list" :key="index"><router-link tag="a" :to="{name:'article',params:{id:item.id}}">{{item.title}}</router-link></li>
               </ul>
               
           </div>
